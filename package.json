@@ -1,0 +1,16 @@
+{
+  "name": "cybersecurity-handbook",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "dev": "docz dev",
+    "build": "docz build",
+    "serve": "docz serve"
+  },
+  "dependencies": {
+    "docz": "latest",
+    "prop-types": "^15.7.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
+  }
+}
