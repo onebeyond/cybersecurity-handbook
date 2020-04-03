@@ -198,3 +198,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/node,code,react,linux,macos,windows
+
+# Docz
+.docz/
