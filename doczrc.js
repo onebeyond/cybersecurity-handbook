@@ -20,6 +20,22 @@ export default {
             'A9 Using Components with Known Vulnerabilities',
             'A10 Insufficient logging and monitoring'
           ]
+        }, {
+          name: 'HTTP Headers',
+          menu: [
+            'Content Security Policy',
+            'Cross Domain Policies',
+            'DNS Prefetch Control',
+            'Don\'t Sniff Mimetype',
+            'Expect Certificate Transparency',
+            'Feature Policy',
+            'Frameguard',
+            'Strict Transport Security',
+            'IE No Open',
+            'Powered by',
+            'Referrer Policy',
+            'XSS Filter'
+          ]
         },
         'Resources'
     ]
