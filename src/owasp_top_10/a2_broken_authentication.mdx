@@ -22,6 +22,39 @@ other implementation flaws to assume other users’ identities temporarily or pe
 - Security Weakness Detectability: 2
 - Impact Technical: 3
 
+## Context
+
+Attackers have access to hundreds of
+millions of valid username and
+password combinations for credential
+stuffing, default administrative
+account lists, automated brute force,
+and dictionary attack tools. Session
+management attacks are well
+understood, particularly in relation to
+unexpired session tokens. 
+
+
+The prevalence of broken authentication is
+widespread due to the design and implementation of
+most identity and access controls. Session management is the bedrock of authentication and access
+controls, and is present in all stateful applications.
+
+
+Attackers can detect broken authentication using
+manual means and exploit them using automated
+tools with password lists and dictionary attacks.
+
+
+Attackers have to gain access to only
+a few accounts, or just one admin
+account to compromise the system.
+Depending on the domain of the
+application, this may allow money
+laundering, social security fraud, and
+identity theft, or disclose legally
+protected highly sensitive information.
+
 ## Is the Application Vulnerable?
 
 Confirmation of the user's identity, authentication, and session
@@ -71,19 +104,22 @@ and invalidated after logout, idle, and absolute timeouts.
 
 ## Example Attack Scenarios
 
-### Scenario #1: [Credential stuffing](https://github.com/danielmiessler/SecLists), the use of [lists of known passwords](https://github.com/danielmiessler/SecLists), is a common attack. If an application does not
+### Scenario #1: 
+[Credential stuffing](https://github.com/danielmiessler/SecLists), the use of [lists of known passwords](https://github.com/danielmiessler/SecLists), is a common attack. If an application does not
 implement automated threat or credential stuffing protections, the
 application can be used as a password oracle to determine if the
 credentials are valid.
 
-### Scenario #2: Most authentication attacks occur due to the
+### Scenario #2: 
+Most authentication attacks occur due to the
 continued use of passwords as a sole factor. Once considered
 best practices, password rotation and complexity requirements
 are viewed as encouraging users to use, and reuse, weak
 passwords. Organizations are recommended to stop these
 practices per NIST 800-63 and use multi-factor authentication.
 
-### Scenario #3: Application session timeouts aren’t set properly. A
+### Scenario #3: 
+Application session timeouts aren’t set properly. A
 user uses a public computer to access an application. Instead of
 selecting “logout” the user simply closes the browser tab and
 walks away. An attacker uses the same browser an hour later,
@@ -91,7 +127,7 @@ and the user is still authenticated.
 
 ## Playground
 
-- [🐑 NodeGoat A2 - Injection](https://nodegoat.herokuapp.com/tutorial/a2)
+- [🐐 NodeGoat A2 - Injection](https://nodegoat.herokuapp.com/tutorial/a2)
 
 
 ## References
