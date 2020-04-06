@@ -36,6 +36,12 @@ export default {
             'Referrer Policy',
             'XSS Filter'
           ]
+        }, {
+          name: "Best practices",
+          menu: [
+            'Nodejs',
+            'Docker'
+          ]
         },
         'Resources'
     ]
