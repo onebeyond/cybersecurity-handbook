@@ -43,6 +43,7 @@ export default {
             'Docker'
           ]
         },
-        'Resources'
+        'Resources',
+        'Acknowledgments and credits'
     ]
   }
