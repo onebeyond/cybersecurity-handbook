@@ -12,7 +12,9 @@ export default {
             'Cyberwar',
             'Cyber Kill Chain (CKC)'
           ]
-        }, {
+        }, 
+        'Notable Security Incidents',
+        {
           name:'OWASP Top 10', 
           menu: [
             'A1 Injection',
