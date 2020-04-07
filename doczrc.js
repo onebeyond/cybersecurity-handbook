@@ -85,6 +85,7 @@ export default {
             'Cookies'
           ]
         },
+        'Tooling',
         {
           name: "Checklists",
           menu: [
