@@ -39,8 +39,17 @@ export default {
         }, {
           name: "Best practices",
           menu: [
+            'General',
+            'Version Control Systems',
             'Nodejs',
-            'Docker'
+            'Npm and dependencies',
+            'Express',
+            'Docker',
+            'Databases',
+            'Crypto',
+            'Session and Tokens',
+            'JWT',
+            'Cookies'
           ]
         },
         'Resources',
