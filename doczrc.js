@@ -7,6 +7,12 @@ export default {
     menu: [
         'Welcome',
         {
+          name:'Attackers', 
+          menu: [
+            'Cyberwar',
+            'Cyber Kill Chain (CKC)'
+          ]
+        }, {
           name:'OWASP Top 10', 
           menu: [
             'A1 Injection',
