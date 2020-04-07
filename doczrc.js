@@ -42,6 +42,20 @@ export default {
             'Symlink'
           ]
         }, {
+          name:'Security Design', 
+          menu: [
+            'Trust',
+            'Authentication',
+            'Authorization',
+            'Separation',
+            'Data validation',
+            'Cryptography',
+            'Sensitive data',
+            'Users',
+            'External components',
+            'Future changes'
+          ]
+        }, {
           name:'OWASP Proactive Controls', 
           menu: [
             'C1 Define Security Requirements',
