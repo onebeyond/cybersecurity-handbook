@@ -85,6 +85,17 @@ export default {
             'Cookies'
           ]
         },
+        {
+          name: "Checklists",
+          menu: [
+            'General',
+            'Nodejs',
+            'Express',
+            'Docker',
+            'Databases',
+            'Authorization and authentication'
+          ]
+        },
         'Resources',
         'Acknowledgments and credits'
     ]
