@@ -7,6 +7,14 @@ export default {
     menu: [
         'Welcome',
         {
+          name:'Attackers', 
+          menu: [
+            'Cyberwar',
+            'Cyber Kill Chain (CKC)'
+          ]
+        }, 
+        'Notable Security Incidents',
+        {
           name:'OWASP Top 10', 
           menu: [
             'A1 Injection',
@@ -20,7 +28,79 @@ export default {
             'A9 Using Components with Known Vulnerabilities',
             'A10 Insufficient logging and monitoring'
           ]
+        }, {
+          name:'Other attacks', 
+          menu: [
+            'Buffer',
+            'HTTP Parameter Pollution',
+            'Insecure Randomness',
+            'Leaking Application Secrets',
+            'Open Redirections',
+            'Path Traversal',
+            'Prototype Pollution',
+            'Regex Denial of Service (ReDoS)',
+            'Symlink'
+          ]
+        }, {
+          name:'OWASP Proactive Controls', 
+          menu: [
+            'C1 Define Security Requirements',
+            'C2 Leverage Security Frameworks and Libraries',
+            'C3 Secure Database Access',
+            'C4 Encode and Escape Data',
+            'C5 Validate All Inputs',
+            'C6 Implement Digital Identity',
+            'C7 Enforce Access Controls',
+            'C8 Protect Data Everywhere',
+            'C9 Implement Security Logging and Monitoring',
+            'C10 Handle all Errors and Exceptions'
+          ]
+        }, {
+          name: 'HTTP Headers',
+          menu: [
+            'Content Security Policy',
+            'Cross Domain Policies',
+            'DNS Prefetch Control',
+            'Don\'t Sniff Mimetype',
+            'Expect Certificate Transparency',
+            'Feature Policy',
+            'Frameguard',
+            'Strict Transport Security',
+            'IE No Open',
+            'Powered by',
+            'Referrer Policy',
+            'XSS Filter'
+          ]
+        }, {
+          name: "Best practices",
+          menu: [
+            'General',
+            'Version Control Systems',
+            'Nodejs',
+            'Npm and dependencies',
+            'Express',
+            'Docker',
+            'Databases',
+            'Crypto',
+            'Session and Tokens',
+            'JWT',
+            'Cookies'
+          ]
         },
-        'Resources'
+        'Tooling',
+        {
+          name: "Checklists",
+          menu: [
+            'General',
+            'Nodejs',
+            'Express',
+            'Docker',
+            'Databases',
+            'Authorization and authentication'
+          ]
+        },
+        'Testing Guides',
+        'Resources',
+        'Acknowledgments and credits'
     ]
   }
