@@ -97,6 +97,7 @@ export default {
             'Authorization and authentication'
           ]
         },
+        'Testing Guides',
         'Resources',
         'Acknowledgments and credits'
     ]
