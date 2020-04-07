@@ -27,6 +27,19 @@ export default {
             'A10 Insufficient logging and monitoring'
           ]
         }, {
+          name:'Other attacks', 
+          menu: [
+            'Buffer',
+            'HTTP Parameter Pollution',
+            'Insecure Randomness',
+            'Leaking Application Secrets',
+            'Open Redirections',
+            'Path Traversal',
+            'Prototype Pollution',
+            'Regex Denial of Service (ReDoS)',
+            'Symlink'
+          ]
+        }, {
           name: 'HTTP Headers',
           menu: [
             'Content Security Policy',
