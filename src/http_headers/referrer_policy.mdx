@@ -5,3 +5,45 @@ route: /http_headers/referrer_policy
 ---
 
 # HTTP Header: Referrer Policy
+
+## The attack
+
+The Referrer Policy module can control the behavior of the `Referer` header by setting the `Referrer-Policy` header.
+
+The [`Referer` HTTP header](https://en.wikipedia.org/wiki/HTTP_referer) is typically set by web browsers to tell a server where it’s coming from. For example, if you click a link on `example.com/index.html` that takes you to `wikipedia.org`, Wikipedia’s servers will see `Referer: example.com`.
+
+This can have privacy implications—websites can see where users are coming from.
+
+## The header
+
+The new [`Referrer-Policy` HTTP header](https://www.w3.org/TR/referrer-policy/#referrer-policy-header) lets authors control how browsers set the `Referer` header.
+
+For example, when supported browsers see this header, they will set no `Referer` header at all:
+
+```
+Referrer-Policy: no-referrer
+```
+
+There are other directives, too. `same-origin`, for example, will only send the `Referer` header for pages on the same origin.
+
+```
+Referrer-Policy: same-origin
+```
+
+You can see the full list of directives on [the specification](https://www.w3.org/TR/referrer-policy/#referrer-policies) and [support in all browsers](http://caniuse.com/#feat=referrer-policy)
+
+
+## The code
+
+```js
+const helmet = require('helmet')
+
+// Sets "Referrer-Policy: same-origin".
+app.use(helmet.referrerPolicy({ policy: 'same-origin' }))
+```
+
+### Refs:
+
+- [Helmet | Referrer Policy](https://helmetjs.github.io/docs/referrer-policy)
+- [Can I use | referrer-policy](http://caniuse.com/#feat=referrer-policy)
+- [Wikipedia | HTTP Referer ](https://en.wikipedia.org/wiki/HTTP_referer)
