@@ -31,8 +31,13 @@ export default {
             'A10 Insufficient logging and monitoring'
           ]
         }, {
-          name:'Other attacks', 
+          name:'Attacks explained', 
           menu: [
+            'Intro',
+            'Clickjacking',
+            'Cross-site scripting (XSS)',
+            'Cross Site Request Forgery (CSRF)',
+            'CSS Exfil',
             'Buffer',
             'HTTP Parameter Pollution',
             'Insecure Randomness',
