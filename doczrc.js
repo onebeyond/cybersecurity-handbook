@@ -37,6 +37,7 @@ export default {
             'Clickjacking',
             'Cross-site scripting (XSS)',
             'Cross Site Request Forgery (CSRF)',
+            'Lockfile',
             'CSS Exfil',
             'Buffer',
             'HTTP Parameter Pollution',
