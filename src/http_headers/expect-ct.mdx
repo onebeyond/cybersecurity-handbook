@@ -21,13 +21,15 @@ The `Expect-CT` HTTP header tells browsers to expect Certificate Transparency.
 
 
 ```js
-const expectCt = require('expect-ct')
+const helmet = require('helmet')
+
+app.use(helmet())
 
 // Sets Expect-CT: max-age=123
-app.use(expectCt({ maxAge: 123 }))
+app.use(helmet.expectCt({ maxAge: 123 }))
 
 // Sets Expect-CT: enforce; max-age=123
-app.use(expectCt({
+app.use(helmet.expectCt({
   enforce: true,
   maxAge: 123
 }))
@@ -37,7 +39,7 @@ You can define a report url. This will help you to analyze the impact on your us
 
 ```js
 // Sets Expect-CT: enforce; max-age=30; report-uri="http://example.com/report"
-app.use(expectCt({
+app.use(helmet.expectCt({
   enforce: true,
   maxAge: 30,
   reportUri: 'http://example.com/report'
