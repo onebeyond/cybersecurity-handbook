@@ -79,6 +79,7 @@ export default {
         }, {
           name: 'HTTP Headers',
           menu: [
+            'Intro',
             'Content Security Policy',
             'Cross Domain Policies',
             'DNS Prefetch Control',
