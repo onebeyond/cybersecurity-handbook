@@ -32,19 +32,22 @@ The header has three options:
 If you aren’t expecting your pages to be put in iframes, setting this to `DENY` or `SAMEORIGIN` is probably a good idea because it limits your page’s attack surface.
 
 ```js
+const helmet = require('helmet')
+
+app.use(helmet())
 // Don't allow me to be in ANY frames.
 // Sets "X-Frame-Options: DENY".
-app.use(frameguard({ action: 'deny' }))
+app.use(helmet.frameguard({ action: 'deny' }))
 
 // Only let me be framed by people of the same origin.
 // Sets "X-Frame-Options: SAMEORIGIN".
-app.use(frameguard({ action: 'sameorigin' }))
-app.use(frameguard())  // defaults to sameorigin
+app.use(helmet.frameguard({ action: 'sameorigin' }))
+app.use(helmet.frameguard())  // defaults to sameorigin
 
 // Allow from a specific host.
 // Sets "X-Frame-Options: ALLOW-FROM http://example.com".
 // Note that browser support for this option is low!
-app.use(frameguard({
+app.use(helmet.frameguard({
   action: 'allow-from',
   domain: 'http://example.com'
 }))
