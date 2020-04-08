@@ -7,10 +7,12 @@ export default {
     menu: [
         'Welcome',
         {
-          name:'Attackers', 
+          name:'About Cybersecurity', 
           menu: [
-            'Cyberwar',
-            'Cyber Kill Chain (CKC)'
+            'Intro',
+            'Common Attacks',
+            'Cyber Kill Chain (CKC)',
+            'State of Open Source'
           ]
         }, 
         'Notable Security Incidents',
@@ -29,8 +31,13 @@ export default {
             'A10 Insufficient logging and monitoring'
           ]
         }, {
-          name:'Other attacks', 
+          name:'Attacks explained', 
           menu: [
+            'Intro',
+            'Clickjacking',
+            'Cross-site scripting (XSS)',
+            'Cross Site Request Forgery (CSRF)',
+            'CSS Exfil',
             'Buffer',
             'HTTP Parameter Pollution',
             'Insecure Randomness',
@@ -72,6 +79,7 @@ export default {
         }, {
           name: 'HTTP Headers',
           menu: [
+            'Intro',
             'Content Security Policy',
             'Cross Domain Policies',
             'DNS Prefetch Control',
