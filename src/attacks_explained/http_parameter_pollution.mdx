@@ -20,7 +20,6 @@ Check out this code:
 ```js
 const express = require('express')
 const app = express()
-const port = 8080
 
 app.get('/films', (req, res) => res.json(req.query))
 
@@ -67,7 +66,6 @@ In the case of Express if the query param is redefined again we will receive an 
 ```js
 const express = require('express')
 const app = express()
-const port = 8080
 
 app.get('/films', (req, res) => {
     const { query } = req
