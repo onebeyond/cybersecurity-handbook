@@ -4,4 +4,88 @@ menu: Attacks explained
 route: /attacks_explained/http_parameter_pollution
 ---
 
-# HTTP Parameter Pollution
+# HTTP Parameter Pollution (HPP)
+
+## The Attack
+
+<iframe width="100%" height="450"
+src="https://www.youtube.com/embed/QVZBl8yxVX0">
+</iframe>
+
+
+There are some corner cases that the [HTTP Specification](https://tools.ietf.org/html/rfc2616) doesn't cover like HTTP Parameter Pollution or HTTP. 
+
+Check out this code:
+
+```js
+const express = require('express')
+const app = express()
+
+app.get('/films', (req, res) => res.json(req.query))
+
+app.listen(8080, () => console.log('Check http://localhost:8080'))
+```
+
+Check out the responses:
+
+```
+http://localhost:8080/films
+
+{}
+```
+
+
+```
+http://localhost:8080/films?actor=Me
+
+{"actor":"Me"}
+```
+
+
+```
+http://localhost:8080/films?actor=Me&director=You
+
+{"actor":"Me","director":"You"}
+```
+
+```
+http://localhost:8080/films?actor=Me&actor=You
+{"actor":["Me","You"]}
+```
+
+In the case of Express if the query param is redefined again we will receive an array, this can lead to many unexpected scenarios like:
+
+- Type Errors uncaught that can lead to DoS attacks
+- Unexpected data that can modify the behavior of our application
+
+
+## The solution
+
+- Check the expected type and implement a strong error handling mechanism.
+
+```js
+const express = require('express')
+const app = express()
+
+app.get('/films', (req, res) => {
+    const { query } = req
+    let actor = Array.isArray(query.actor) ? query.actor[0] : query.actor;
+    res.send(`The actor is ${actor}`)
+})
+
+app.listen(8080, () => console.log('Check http://localhost:8080'))
+```
+
+```
+http://localhost:8080/films?actor=Me
+The actor is Me
+```
+
+```
+http://localhost:8080/films?actor=Me&actor=You
+The actor is Me
+``` 
+
+### Refs
+
+- [ckarande | Top Overlooked Security Threats to Node.js Web Applications | HPP](https://speakerdeck.com/ckarande/top-overlooked-security-threats-to-node-dot-js-web-applications?slide=48)
