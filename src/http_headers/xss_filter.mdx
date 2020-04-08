@@ -5,3 +5,48 @@ route: /http_headers/xss_filter
 ---
 
 # HTTP Header: XSS Filter
+
+## The attack
+
+One kind of XSS is called “Reflected XSS”. Typically, it works by setting a query string which is put directly into the HTML. Putting JavaScript in the query string can let an attacker execute their JavaScript just by giving someone a malicious query string.
+
+<iframe width="100%" height="450"
+src="https://www.youtube.com/embed/9xyRKZbv5kQ">
+</iframe>
+
+## The header
+
+To be very clear: this header does not protect you from XSS attacks much. It protects against a very particular kind of XSS, and other mitigation measures are far better. This header provides a quick win and basic protection, but this header does not save you from XSS attacks.
+
+It’s relatively easy for browsers to detect simple reflected XSS. In the example above, browsers could choose not to execute the JavaScript inside a `<script>` tag if it matches what’s in the query string. Some browsers do this detection by default, but some don’t. To make these browsers check for this simple case, you can set the `X-XSS-Protection` header to `1; mode=block`.
+
+This tells browsers to detect and block reflected XSS.
+
+Note: This header causes some even worse security vulnerabilities in older versions of Internet Explorer, so it’s wise to disable it there.
+
+## The code
+
+The `xssFilter` middleware sets the `X-XSS-Protection` header to prevent reflected XSS attacks.
+
+```js
+const helmet = require('helmet')
+
+// Sets "X-XSS-Protection: 1; mode=block".
+app.use(helmet.xssFilter())
+```
+
+#### Report violations
+
+You can also optionally configure a report URI, though the flag is specific to [Chrome-based browsers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection). 
+
+This option will report the violation to the specified URI:
+```js
+const helmet = require('helmet')
+
+// Sets "X-XSS-Protection: 1; report=/report-xss-violation; mode=block".
+app.use(xssFilter({ reportUri: '/report-xss-violation' }))
+```
+
+### Refs:
+
+- [Helmet | XSS Filter](https://helmetjs.github.io/docs/xss-filter)
