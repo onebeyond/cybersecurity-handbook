@@ -7,10 +7,12 @@ export default {
     menu: [
         'Welcome',
         {
-          name:'Attackers', 
+          name:'About Cybersecurity', 
           menu: [
-            'Cyberwar',
-            'Cyber Kill Chain (CKC)'
+            'Intro',
+            'Common Attacks',
+            'Cyber Kill Chain (CKC)',
+            'State of Open Source'
           ]
         }, 
         'Notable Security Incidents',
