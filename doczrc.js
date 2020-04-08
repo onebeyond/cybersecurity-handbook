@@ -40,6 +40,7 @@ export default {
             'Lockfile',
             'CSS Exfil',
             'Buffer',
+            'Exhausting System Resources',
             'HTTP Parameter Pollution',
             'Insecure Randomness',
             'Leaking Application Secrets',
