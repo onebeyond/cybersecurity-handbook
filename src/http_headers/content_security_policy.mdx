@@ -157,7 +157,6 @@ app.use(helmet.contentSecurityPolicy(csp({
 })
 ```
 
-
 #### Browser sniffing
 
 By default, this module will look at the incoming `User-Agent` header and send different headers depending on the detected browser. For example, Chrome prior to version 25 uses an alternate header called `X-WebKit-CSP`, and this module handles that. If no browser is detected, this module will set all the headers with the 2.0 spec.
@@ -172,6 +171,43 @@ app.use(helmet.contentSecurityPolicy(csp({
     // ...
   },
   browserSniff: false
+})
+```
+
+## Advance CSP
+
+### Generating Nounces
+
+```js
+const uuidv4 = require('uuid/v4')
+
+app.use(function (req, res, next) {
+  res.locals.nonce = uuidv4()
+  next()
+})
+
+app.use(csp({
+  directives: {
+    scriptSrc: [
+      "'self'",
+      (req, res) => `'nonce-${res.locals.nonce}'`  // 'nonce-614d9122-d5b0-4760-aecf-3a5d17cf0ac9'
+    ]
+  }
+}))
+
+app.use(function (req, res) {
+  res.end(`<script nonce="${res.locals.nonce}">alert(1 + 1);</script>`)
+})
+```
+
+### Debugging mode
+
+```
+app.use(csp({
+  directives: {
+    // ...
+  },
+  reportOnly: (req, res) => req.query.cspmode === 'debug'
 })
 ```
 
