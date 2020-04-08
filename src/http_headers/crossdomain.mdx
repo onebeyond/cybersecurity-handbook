@@ -5,3 +5,33 @@ route: /http_headers/crossdomain
 ---
 
 # HTTP Header: X-Permitted-Cross-Domain-Policies
+
+## The attack
+
+Adobe Flash and Adobe Acrobat can load content from your domain even from other sites (in other words, cross-domain). This could cause unexpected data disclosure in rare cases or extra bandwidth usage.
+
+## The header
+
+The `X-Permitted-Cross-Domain-Policies` header tells clients like Flash and Acrobat what cross-domain policies they can use. If you don’t want them to load data from your domain, set the header’s value to none. For example:
+
+```
+X-Permitted-Cross-Domain-Policies: none
+```
+
+If Flash loads something from your site and sees that, it’ll know that it shouldn’t load data from your domain.
+
+## The code
+
+Helmet’s `crossdomain` middleware prevents Adobe Flash and Adobe Acrobat from loading content on your site.
+
+```js
+const helmet = require('helmet')
+
+// Sets "X-Permitted-Cross-Domain-Policies: none"
+app.use(helmet.permittedCrossDomainPolicies())
+```
+
+### Refs:
+
+- [Helmet | X-Permitted-Cross-Domain-Policies](https://helmetjs.github.io/docs/crossdomain)
+- [Adobe Flash | Cross Domain Configuration](https://www.adobe.com/devnet-docs/acrobatetk/tools/AppSec/xdomain.html)
