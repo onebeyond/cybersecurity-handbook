@@ -124,6 +124,7 @@ export default {
           ]
         },
         'Testing Guides',
+        'Cheat Sheets',
         'Resources',
         'Acknowledgments and credits'
     ]
