@@ -294,9 +294,7 @@ To prevent this specific attack you can use a regex to validate the [Youtube vid
 
 Our server code:
 ```js
-const { exec } = require('child_process');
-const express = require('express');
-const app = express();
+//..
 const idValidation = (id) => {
     const re = /^[a-zA-Z0-9_-]{11}$/;
     return re.test(String(id));
@@ -312,8 +310,7 @@ app.get('/download_video/:id', (req, res) => {
       res.send(`🎉 Video with id:${id} was downloaded!.`)
   })
 });
-
-app.listen(8080);
+//..
 ```
 
 Note: This kind of bugs in the design can easily lead to Backdoors. Check out [this post for more details](https://snyk.io/blog/what-is-a-backdoor/). 
