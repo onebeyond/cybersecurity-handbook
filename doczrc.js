@@ -19,6 +19,7 @@ export default {
         {
           name:'OWASP Top 10', 
           menu: [
+            'Intro',
             'A1 Injection',
             'A2 Broken Authentication',
             'A3 Sensitive Data Exposure',
