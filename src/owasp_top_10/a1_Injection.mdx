@@ -27,7 +27,7 @@ interpreter into executing unintended commands or accessing data without proper 
 ## Context
 
 <iframe width="100%" height="450"
-src="https://www.youtube.com/embed/9CnpHT5Nn8c">
+src="https://www.youtube.com/embed/rWHvp7rUka8">
 </iframe>
 
 Almost any source of data can be an injection vector, environment
@@ -85,9 +85,6 @@ cookies, JSON, SOAP, and XML data inputs. Organizations can
 include static source (SAST) and dynamic application test
 (DAST) tools into the CI/CD pipeline to identify newly introduced
 injection flaws prior to production deployment. 
-
-
-A very extended way to exploit this vulnerability is using Cross-site scripting (XSS) attacks. Please [check out the specific entry for XSS in this manual](/attacks_explained/cross-site_scripting_xss)
 
 
 ## Conceptual Attacks
@@ -314,6 +311,23 @@ app.get('/download_video/:id', (req, res) => {
 ```
 
 Note: This kind of bugs in the design can easily lead to Backdoors. Check out [this post for more details](https://snyk.io/blog/what-is-a-backdoor/). 
+
+
+### External content Injection:
+
+It is very common to use Content Delivery Networks (CDNs) to speed up our static content (css, js, etc...). If we are using a third party CDN we must use [Subresource Integrity
+validation](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) in our HTML in order to prevent the execution on malicious content in case that the CDN got compromised and the files were replaced by malicious ones.
+
+```html
+<script src="https://example.com/example-framework.js"
+    integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC"
+    crossorigin="anonymous">
+</script>
+```
+
+As you can see the `integrity` property contains the hashed value of the file that we are expecting. This will allow the browser to check the integrity of the files downloaded before the execution.
+
+Note: Most of the CDN services already had included this features, please use them
 
 ## How to Prevent
 
