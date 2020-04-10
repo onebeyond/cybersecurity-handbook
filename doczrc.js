@@ -115,12 +115,12 @@ export default {
         {
           name: "Checklists",
           menu: [
-            'General',
+            'Intro',
             'Nodejs',
             'Express',
-            'Docker',
             'Databases',
-            'Authorization and authentication'
+            'Authorization and authentication',
+            'Docker'
           ]
         },
         'Testing Guides',
