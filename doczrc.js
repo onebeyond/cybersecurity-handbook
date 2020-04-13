@@ -49,7 +49,8 @@ export default {
             'Path Traversal',
             'Prototype Pollution',
             'Regex Denial of Service (ReDoS)',
-            'Symlink'
+            'Symlink',
+            'XML Bomb'
           ]
         }, {
           name:'Security Design', 
