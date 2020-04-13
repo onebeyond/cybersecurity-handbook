@@ -105,7 +105,7 @@ login. Session IDs should not be in the URL, be securely stored
 and invalidated after logout, idle, and absolute timeouts.
 
 
-## Example Attack Scenarios
+## Conceptual Attacks
 
 ### Scenario #1: 
 [Credential stuffing](https://github.com/danielmiessler/SecLists), the use of [lists of known passwords](https://github.com/danielmiessler/SecLists), is a common attack. If an application does not
@@ -128,6 +128,95 @@ selecting “logout” the user simply closes the browser tab and
 walks away. An attacker uses the same browser an hour later,
 and the user is still authenticated.
 
+
+## Example Attack Scenarios
+
+### Passwords are not properly hashed and salted: 
+
+NEVER Store a password in plain text. 
+
+Some good practices to store passwords:
+1. Validate the password strength
+2. Use [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) with a high cost (>=15) or a secure salt system to generate the password hash.
+3. Optional: Force the users to change the password every 90 days maximum.
+
+Extra features:
+1. Use A Two-Factor Authentication System
+2. Ensure that the password Verify is not listed In known Password Dictionaries ([crackstation](https://crackstation.net/crackstation-wordlist-password-cracking-dictionary.htm), [danielmiessler/SecLists](https://github.com/danielmiessler/SecLists/tree/master/Passwords)...)
+3. Validate that the user/pass wasn't compromised using [haveibeenpwned API](https://haveibeenpwned.com/API/v3) or similar
+
+```js
+const bcrypt = require('bcrypt'); //https://www.npmjs.com/package/bcrypt
+const saltRounds = 15;
+
+const isPassStrong = (pass) => {
+    // @see: https://www.thepolyglotdeveloper.com/2015/05/use-regex-to-test-password-strength-in-javascript/
+    const criteria = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})"
+    return criteria.test(pass)
+}
+
+const hashPass = async (pass) => {
+    if(!isPassStrong(pass)) throw new Error("The password is weak!")
+    bcrypt.hash(pass, saltRounds, (err, hash) => {
+        if(err) throw err;
+        return hash
+    });
+}
+```
+
+### Session IDs in the URL: 
+
+This example is based on  [Scott Smith example about Authentication and sessions](http://scottksmith.com/blog/2015/06/15/secure-node-apps-against-owasp-top-10-authentication-and-sessions/)
+
+
+NEVER use the session ID in the URL as your application will be very vulnerable:
+
+- Much more visible and thus more dangerous and the sharing of link grants others full access
+- Stored on cache servers and browser history
+- Leaked through the Referer header and logs not properly protected
+
+Some good practices to manage session IDs:
+- You can use cookies for session
+- You cna use Authentication headers if you are using JWT or similar 
+- You need to ensure that all the traffic is handled using https
+- If you are using cookies, please ensure that you use [`secure`](https://github.com/expressjs/session#cookiesecure) and [`httpOnly`](https://github.com/expressjs/session#cookiehttponly) flags.
+- As well ensure that you are using Strict Transport Security (HSTS).
+- If you are using a proxy don't forget to enable [`trust proxy` in Express](http://expressjs.com/en/guide/behind-proxies.html)
+
+Extra:
+- Check the documentation for HTTP headers in this guide.
+- Check the details about Strict Transport Security (HSTS) in this guide.
+
+```js
+const express = require('express');
+const session = require('express-session');
+const helmet  = require('helmet');
+const {secretSession} = require('./config).express
+
+const app = express();
+
+// HSTS
+app.use(helmet.hsts({
+  maxAge: 7776000000, // 90 days
+  includeSubdomains: true
+}));
+
+// Proxy setup
+app.set('trust proxy', 1);
+
+// Cookie session details
+app.use(session({
+  secret: 'secret session secret',
+  cookie: {
+    maxAge: 3600000, // 2 hours in milliseconds
+    secure: true,
+    httpOnly: true
+  }
+}));
+
+app.listen(8080);
+```
+
 ## Hacking Playground
 
 - [🐐 NodeGoat | A2 Broken Authentication](https://nodegoat.herokuapp.com/tutorial/a2)
@@ -145,3 +234,8 @@ and the user is still authenticated.
 ### CWEs
 - [CWE-287: Improper Authentication](https://cwe.mitre.org/data/definitions/287.html)
 - [CWE-384: Session Fixation](https://cwe.mitre.org/data/definitions/384.html)
+
+### Other
+
+- [stackexchange | How to securely hash passwords?](https://security.stackexchange.com/a/31846)
+- [stackexchange | Do any security experts recommend bcrypt for password storage?](https://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage)
