@@ -24,6 +24,10 @@ malicious sites.
 
 ## Context
 
+<iframe width="100%" height="450"
+src="https://www.youtube.com/embed/IuzU4y-UjLw">
+</iframe>
+
 Automated tools can detect and
 exploit all three forms of XSS, and
 there are freely available exploitation
@@ -100,7 +104,7 @@ vulnerabilities exist that would allow placing malicious code via
 local file includes (e.g. path traversal overwrites or vulnerable
 libraries from permitted content delivery networks).
 
-## Example Attack Scenarios
+## Conceptual Attacks
 
 ### Scenario #1: 
 The application uses untrusted data in the
@@ -124,6 +128,17 @@ current session.
 
 Note: Attackers can use XSS to defeat any automated CrossSite Request Forgery (CSRF) defense the application might
 employ.
+
+
+## Example Attack Scenarios
+
+### Please review
+- The [Explained attack: Cross-site scripting (XSS) in this guide](/attacks_explained/cross-site_scripting_xss)
+    - [Reflected XSS](/attacks_explained/cross-site_scripting_xss#reflected-xss)
+    - [Stored XSS](/attacks_explained/cross-site_scripting_xss#stored-xss)
+    - [DOM XSS](/attacks_explained/cross-site_scripting_xss#dom-xss)
+- The [Explained attack: Cross Site Request Forgery (CSRF) in this guide](/attacks_explained/cross_site_request_forgery_csrf)
+- The [Explained attack: Server-Side Request Forgery (SSRF) in this guide]()
 
 ## Hacking Playground
 

@@ -19,6 +19,7 @@ export default {
         {
           name:'OWASP Top 10', 
           menu: [
+            'Intro',
             'A1 Injection',
             'A2 Broken Authentication',
             'A3 Sensitive Data Exposure',
@@ -48,7 +49,8 @@ export default {
             'Path Traversal',
             'Prototype Pollution',
             'Regex Denial of Service (ReDoS)',
-            'Symlink'
+            'Symlink',
+            'XML Bomb'
           ]
         }, {
           name:'Security Design', 
@@ -115,15 +117,16 @@ export default {
         {
           name: "Checklists",
           menu: [
-            'General',
+            'Intro',
             'Nodejs',
             'Express',
-            'Docker',
             'Databases',
-            'Authorization and authentication'
+            'Authorization and authentication',
+            'Docker'
           ]
         },
         'Testing Guides',
+        'Cheat Sheets',
         'Resources',
         'Acknowledgments and credits'
     ]

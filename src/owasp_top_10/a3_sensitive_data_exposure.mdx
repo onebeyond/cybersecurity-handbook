@@ -7,6 +7,10 @@ route: /owasp/a3_sensitived_data_exposure
 # A3 Sensitive Data Exposure
 
 
+![CommitStrip | Security checklist](../../public/meme_03.jpg)
+_Image from [CommitStrip | Security checklist](http://www.commitstrip.com/en/2014/10/28/security-checklist/)_
+
+
 ## Definition
 
 Many web applications and APIs do not properly protect sensitive data, such as financial,
@@ -24,6 +28,10 @@ exchanged with the browser.
 - Impact Technical: 3
 
 ## Context
+
+<iframe width="100%" height="450"
+src="https://www.youtube.com/embed/2RKbacrkUBU">
+</iframe>
 
 Rather than directly attacking crypto,
 attackers steal keys, execute man-inthe-middle attacks, or steal clear text
@@ -100,7 +108,9 @@ functions with a work factor (delay factor), such as [Argon2](https://www.crypto
 - Verify independently the effectiveness of configuration and
 settings.
 
-## Example Attack Scenarios
+## Conceptual Attacks
+
+![meme - you can't leak passwords if you don't store them](../../public/meme_02.png)
 
 ### Scenario #1: 
 An application encrypts credit card numbers in a
@@ -130,7 +140,7 @@ be cracked by GPUs, even if they were salted.
 
 ## Hacking Playground
 
-- [🐐 NodeGoat | A3 Sensitive Data Exposure](https://nodegoat.herokuapp.com/tutorial/a3)
+- [🐐 NodeGoat | A6 Sensitive Data Exposure](https://nodegoat.herokuapp.com/tutorial/a6)
 - [🧃 Pwning OWASP Juice Shop | A3 - Sensitive Data Exposure](https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html)
 
 
