@@ -106,6 +106,7 @@ segmentation, containerization, or cloud security groups.
 - Sending security directives to clients, e.g. Security Headers.
 - An automated process to verify the effectiveness of the
 configurations and settings in all environments.
+- Use generators for projects like [generator-systemic](https://github.com/guidesmiths/generator-systemic) or [create-react-app](https://github.com/facebook/create-react-app).
 
 ## Example Attack Scenarios
 
@@ -133,6 +134,47 @@ such as component versions that are known to be vulnerable.
 A cloud service provider has default sharing
 permissions open to the Internet by other CSP users. This allows
 sensitive data stored within cloud storage to be accessed.
+
+## Example Attack Scenarios
+
+### Express information leak on headers
+
+Express by default without helmet:
+
+```
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 12
+ETag: W/"c-Lve95gjOVATpfV8EL5X4nxwjKHE"
+Date: Wed, 08 Apr 2020 07:00:48 GMT
+Connection: keep-alive
+```
+
+Without `X-Powered-By`:
+```
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 12
+ETag: W/"c-Lve95gjOVATpfV8EL5X4nxwjKHE"
+Date: Wed, 08 Apr 2020 07:00:48 GMT
+Connection: keep-alive
+```
+
+```js
+const express = require('express');
+const app = express();
+
+app.disable('x-powered-by')
+
+app.listen(8080);
+```
+
+#### Please review
+- The [Recommendations for HTTP Headers in this guide](/http_headers/)
+- The [Best practices for Express in this guide](/best_practices/express)
+
+
 
 ## Hacking Playground
 
