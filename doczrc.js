@@ -96,7 +96,8 @@ export default {
             'Powered by',
             'Referrer Policy',
             'XSS Filter',
-            'ETag'
+            'ETag',
+            'CORS'
           ]
         }, {
           name: "Best practices",

@@ -8,7 +8,6 @@ route: /http_headers/
 
 The HTTP Headers are one of the most important tools to help you manage the security. 
 
-
 ## Understanding Helmet
 
 As we are using Express on our stack, we highly recommend to extend the HTTP Headers definitions using the middleware [Helmet](https://helmetjs.github.io/)
@@ -327,6 +326,14 @@ If you are building a site from scratch you can always follow the lock down stra
 If there is a running platform, the best approach is to collect data before implementing any real policy. Use the `reportOnly: true` setup in order to get all the violations without affecting the current users. 
 
 This will let you a lot of time to understand the current dependencies and validate the rules based on a product requirements.
+
+
+## Other headers
+
+There are other relevant headers that aren't part of Helmet.
+
+- [CORS](/http_headers/cors)
+- [ETag](/http_headers/etag)
 
 
 ### Refs:
