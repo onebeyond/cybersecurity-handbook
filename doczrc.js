@@ -95,7 +95,9 @@ export default {
             'IE No Open',
             'Powered by',
             'Referrer Policy',
-            'XSS Filter'
+            'XSS Filter',
+            'ETag',
+            'CORS'
           ]
         }, {
           name: "Best practices",
