@@ -38,6 +38,7 @@ export default {
             'Clickjacking',
             'Cross-site scripting (XSS)',
             'Cross Site Request Forgery (CSRF)',
+            'Server-Side Request Forgery (SSRF)',
             'Lockfile',
             'CSS Exfil',
             'Buffer',
@@ -50,7 +51,11 @@ export default {
             'Prototype Pollution',
             'Regex Denial of Service (ReDoS)',
             'Symlink',
-            'XML Bomb'
+            'XML Bomb',
+            'ZIP Bomb',
+            'Fork Bomb',
+            'Symlink',
+            'Exhausting System Resources'
           ]
         }, {
           name:'Security Design', 
