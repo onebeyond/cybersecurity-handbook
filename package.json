@@ -1,6 +1,6 @@
 {
   "name": "cybersecurity-handbook",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "license": "MIT",
   "scripts": {
     "dev": "docz dev",
