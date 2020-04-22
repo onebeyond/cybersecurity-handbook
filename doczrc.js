@@ -1,4 +1,5 @@
 export default {
+    hashRouter: true,
     themeConfig: {
       mode: 'dark',
     },
