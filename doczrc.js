@@ -55,6 +55,7 @@ export default {
         }, {
           name:'Security Design', 
           menu: [
+            'Intro',
             'Trust',
             'Authentication',
             'Authorization',
