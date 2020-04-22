@@ -70,6 +70,7 @@ export default {
         }, {
           name:'OWASP Proactive Controls', 
           menu: [
+            'Intro',
             'C1 Define Security Requirements',
             'C2 Leverage Security Frameworks and Libraries',
             'C3 Secure Database Access',
