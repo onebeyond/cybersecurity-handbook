@@ -2,6 +2,7 @@ export default {
     themeConfig: {
       mode: 'dark',
     },
+    dest: '/docs',
     title: 'Cybersecurity Handbook',
     files: 'src/**/*.{md,markdown,mdx}',
     menu: [
