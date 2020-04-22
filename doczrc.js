@@ -1,5 +1,6 @@
 export default {
     hashRouter: true,
+    base: '/docs',
     themeConfig: {
       mode: 'dark',
     },
