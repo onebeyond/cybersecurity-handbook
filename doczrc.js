@@ -38,6 +38,7 @@ export default {
             'Clickjacking',
             'Cross-site scripting (XSS)',
             'Cross Site Request Forgery (CSRF)',
+            'Server-Side Request Forgery (SSRF)',
             'Lockfile',
             'CSS Exfil',
             'Buffer',
@@ -50,11 +51,16 @@ export default {
             'Prototype Pollution',
             'Regex Denial of Service (ReDoS)',
             'Symlink',
-            'XML Bomb'
+            'XML Bomb',
+            'ZIP Bomb',
+            'Fork Bomb',
+            'Symlink',
+            'Exhausting System Resources'
           ]
         }, {
           name:'Security Design', 
           menu: [
+            'Intro',
             'Trust',
             'Authentication',
             'Authorization',
@@ -69,6 +75,7 @@ export default {
         }, {
           name:'OWASP Proactive Controls', 
           menu: [
+            'Intro',
             'C1 Define Security Requirements',
             'C2 Leverage Security Frameworks and Libraries',
             'C3 Secure Database Access',
@@ -102,6 +109,7 @@ export default {
         }, {
           name: "Best practices",
           menu: [
+            'Intro',
             'General',
             'Version Control Systems',
             'Nodejs',
