@@ -104,6 +104,7 @@ export default {
         }, {
           name: "Best practices",
           menu: [
+            'Intro',
             'General',
             'Version Control Systems',
             'Nodejs',
