@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "docz dev",
-    "build": "docz build",
+    "build": "docz build --prefix-paths",
     "serve": "docz serve"
   },
   "dependencies": {
