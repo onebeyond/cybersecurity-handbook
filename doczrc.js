@@ -1,6 +1,6 @@
 export default {
     hashRouter: true,
-    pathPrefix: "/cybersecurity-handbook",
+    base: "/cybersecurity-handbook",
     dest: "/docs",
     themeConfig: {
       mode: 'dark',
