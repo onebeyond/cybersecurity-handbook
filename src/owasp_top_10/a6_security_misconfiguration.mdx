@@ -83,31 +83,6 @@ Components with Known Vulnerabilities](/owasp/a9_using_components_with_known_vul
 Without a concerted, repeatable application security
 configuration process, systems are at a higher risk.
 
-## How to Prevent
-
-Secure installation processes should be implemented, including:
-- A repeatable hardening process that makes it fast and easy to
-deploy another environment that is properly locked down.
-Development, QA, and production environments should all be
-configured identically, with different credentials used in each
-environment. This process should be automated to minimize
-the effort required to setup a new secure environment.
-- A minimal platform without any unnecessary features,
-components, documentation, and samples. Remove or do not
-install unused features and frameworks.
-- A task to review and update the configurations appropriate to
-all security notes, updates and patches as part of the patch
-management process (see [A9:2017-Using Components with
-Known Vulnerabilities](/owasp/a9_using_components_with_known_vulnerabilities)). In particular, review cloud storage
-permissions (e.g. S3 bucket permissions).
-- A segmented application architecture that provides effective,
-secure separation between components or tenants, with
-segmentation, containerization, or cloud security groups.
-- Sending security directives to clients, e.g. Security Headers.
-- An automated process to verify the effectiveness of the
-configurations and settings in all environments.
-- Use generators for projects like [generator-systemic](https://github.com/guidesmiths/generator-systemic) or [create-react-app](https://github.com/facebook/create-react-app).
-
 ## Conceptual Attacks
 
 ### Scenario #1:
@@ -169,6 +144,33 @@ app.disable('x-powered-by')
 
 app.listen(8080);
 ```
+
+
+## How to Prevent
+
+Secure installation processes should be implemented, including:
+- A repeatable hardening process that makes it fast and easy to
+deploy another environment that is properly locked down.
+Development, QA, and production environments should all be
+configured identically, with different credentials used in each
+environment. This process should be automated to minimize
+the effort required to setup a new secure environment.
+- A minimal platform without any unnecessary features,
+components, documentation, and samples. Remove or do not
+install unused features and frameworks.
+- A task to review and update the configurations appropriate to
+all security notes, updates and patches as part of the patch
+management process (see [A9:2017-Using Components with
+Known Vulnerabilities](/owasp/a9_using_components_with_known_vulnerabilities)). In particular, review cloud storage
+permissions (e.g. S3 bucket permissions).
+- A segmented application architecture that provides effective,
+secure separation between components or tenants, with
+segmentation, containerization, or cloud security groups.
+- Sending security directives to clients, e.g. Security Headers.
+- An automated process to verify the effectiveness of the
+configurations and settings in all environments.
+- Use generators for projects like [generator-systemic](https://github.com/guidesmiths/generator-systemic) or [create-react-app](https://github.com/facebook/create-react-app).
+
 
 #### Please review
 - The [Recommendations for HTTP Headers in this guide](/http_headers/)

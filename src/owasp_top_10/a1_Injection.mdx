@@ -95,8 +95,8 @@ An application uses untrusted data in the
 construction of the following vulnerable SQL call:
 
 ```js
-String query = "SELECT * FROM accounts WHERE
-custID='" + request.getParameter("id") + "'";
+const query = `SELECT * FROM accounts WHERE
+custID='${request.getParameter("id")}'`;
 ```
 
 ### Scenario #2: Similarly, an application’s blind trust in frameworks
@@ -104,14 +104,14 @@ may result in queries that are still vulnerable, (e.g. Hibernate
 Query Language (HQL)):
 
 ```js
-Query HQLQuery = session.createQuery("FROM accounts
-WHERE custID='" + request.getParameter("id") + "'");
+const HQLQuery = session.createQuery(`FROM accounts
+WHERE custID='${request.getParameter("id")}'`);
 ```
 
 In both cases, the attacker modifies the ‘id’ parameter value in
 their browser to send: `' or '1'='1`. For example:
 
-```js
+```
 http://example.com/app/accountView?id=' or '1'='1
 ```
 
@@ -373,6 +373,7 @@ You always must sanitize all the Inputs. No matter where they came from. Any non
 
 - [🐐 NodeGoat | A1 - Injection](https://nodegoat.herokuapp.com/tutorial/a1)
 - [🧃 Pwning OWASP Juice Shop | A1 - Injection](https://pwning.owasp-juice.shop/part2/injection.html)
+- [Kontra | SQL Injection](https://application.security/free-application-security-training/owas-top-10-sql-injection)
 
 ## References
 

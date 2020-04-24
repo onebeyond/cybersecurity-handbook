@@ -7,7 +7,6 @@ route: /owasp/a9_using_components_with_known_vulnerabilities
 # A9 Using Components with Known Vulnerabilities
 
 
-
 ## Definition
 
 Components, such as libraries, frameworks, and other software modules, run with the same
@@ -81,6 +80,43 @@ upgraded, or patched libraries.
 - If you do not secure the components' configurations
 (see [A6:2017-Security Misconfiguration](/owasp/a6_security_misconfiguration)).
 
+
+## Conceptual Attacks
+
+### Scenario #1: 
+Components typically run with the same privileges
+as the application itself, so flaws in any component can result in
+serious impact. Such flaws can be accidental (e.g. coding error)
+or intentional (e.g. backdoor in component). Some example
+exploitable component vulnerabilities discovered are:
+- [CVE-2017-5638](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-5638), a Struts 2 remote code execution vulnerability
+that enables execution of arbitrary code on the server, has
+been blamed for significant breaches.
+- While [internet of things (IoT)](https://en.wikipedia.org/wiki/Internet_of_things) are frequently difficult or
+impossible to patch, the importance of patching them can be
+great (e.g. biomedical devices).
+There are automated tools to help attackers find unpatched or
+misconfigured systems. For example, the Shodan IoT search
+engine can help you [find devices](https://www.shodan.io/report/89bnfUyJ) that still suffer from
+the [Heartbleed vulnerability](https://en.wikipedia.org/wiki/Heartbleed) that was patched in April 2014.
+
+
+## Example Attack Scenarios
+
+### Prototype pollution attack: 
+
+![screenshoot from npm audit at Github Netflix/nerror](../../public/prototype_pollution_alert.png)
+_Image from [Github Netflix/nerror](https://github.com/Netflix/nerror/issues/8)_
+
+
+In order to get a full picture of this attack check [Explained attacks: Prototype Pollution in this guide](/attacks_explained/prototype_pollution)
+
+
+### lockfile poison
+
+In order to get a full picture of this attack check [Explained attacks: Prototype Pollution in this guide](/attacks_explained/lockfile)
+
+
 ## How to Prevent
 
 There should be a patch management process in place to:
@@ -112,36 +148,6 @@ changes for the lifetime of the application or portfolio.
 - The [Best practices for Npm and dependencies in this guide](/best_practices/npm_and_dependencies)
 - The [Best practices for Docker in this guide](/best_practices/docker)
 
-
-## Conceptual Attacks
-
-### Scenario #1: 
-Components typically run with the same privileges
-as the application itself, so flaws in any component can result in
-serious impact. Such flaws can be accidental (e.g. coding error)
-or intentional (e.g. backdoor in component). Some example
-exploitable component vulnerabilities discovered are:
-- [CVE-2017-5638](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-5638), a Struts 2 remote code execution vulnerability
-that enables execution of arbitrary code on the server, has
-been blamed for significant breaches.
-- While [internet of things (IoT)](https://en.wikipedia.org/wiki/Internet_of_things) are frequently difficult or
-impossible to patch, the importance of patching them can be
-great (e.g. biomedical devices).
-There are automated tools to help attackers find unpatched or
-misconfigured systems. For example, the Shodan IoT search
-engine can help you [find devices](https://www.shodan.io/report/89bnfUyJ) that still suffer from
-the [Heartbleed vulnerability](https://en.wikipedia.org/wiki/Heartbleed) that was patched in April 2014.
-
-
-## Example Attack Scenarios
-
-### Prototype pollution attack: 
-
-![screenshoot from npm audit at Github Netflix/nerror](../../public/prototype_pollution_alert.png)
-_Image from [Github Netflix/nerror](https://github.com/Netflix/nerror/issues/8)_
-
-
-In order to get a full picture of this attack check [Explained attacks: Prototype Pollution in this guide](/attacks_explained/prototype_pollution)
 
 
 ## Hacking Playground

@@ -78,30 +78,6 @@ the SOAP framework.
 application is vulnerable to denial of service attacks including
 the Billion Laughs attack.
 
-## How to Prevent
-
-Developer training is essential to identify and mitigate XXE.
-Besides that, preventing XXE requires:
-- Whenever possible, use less complex data formats such as
-JSON, and avoiding serialization of sensitive data.
-- Patch or upgrade all XML processors and libraries in use by
-the application or on the underlying operating system. Use
-dependency checkers. Update SOAP to SOAP 1.2 or higher.
-- Disable XML external entity and DTD processing in all XML
-parsers in the application, as per the [OWASP Cheat Sheet
-'XXE Prevention']((https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html)).
-- Implement positive ("whitelisting") server-side input validation,
-filtering, or sanitization to prevent hostile data within XML
-documents, headers, or nodes.
-- Verify that XML or XSL file upload functionality validates
-incoming XML using XSD validation or similar.
-- SAST tools can help detect XXE in source code, although
-manual code review is the best alternative in large, complex
-applications with many integrations.
-If these controls are not possible, consider using virtual
-patching, API security gateways, or Web Application Firewalls
-(WAFs) to detect, monitor, and block XXE attacks.
-
 ## Conceptual Attacks
 
 Numerous public XXE issues have been discovered, including
@@ -159,10 +135,35 @@ An attacker attempts a denial-of-service attack by expanding entities, like [Bil
 ```
 
 
+## How to Prevent
+
+Developer training is essential to identify and mitigate XXE.
+Besides that, preventing XXE requires:
+- Whenever possible, use less complex data formats such as
+JSON, and avoiding serialization of sensitive data.
+- Patch or upgrade all XML processors and libraries in use by
+the application or on the underlying operating system. Use
+dependency checkers. Update SOAP to SOAP 1.2 or higher.
+- Disable XML external entity and DTD processing in all XML
+parsers in the application, as per the [OWASP Cheat Sheet
+'XXE Prevention']((https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html)).
+- Implement positive ("whitelisting") server-side input validation,
+filtering, or sanitization to prevent hostile data within XML
+documents, headers, or nodes.
+- Verify that XML or XSL file upload functionality validates
+incoming XML using XSD validation or similar.
+- SAST tools can help detect XXE in source code, although
+manual code review is the best alternative in large, complex
+applications with many integrations.
+If these controls are not possible, consider using virtual
+patching, API security gateways, or Web Application Firewalls
+(WAFs) to detect, monitor, and block XXE attacks.
+
+
 ## Hacking Playground
 
 - [🧃 Pwning OWASP Juice Shop | A4 XML External Entities (XXE)](https://pwning.owasp-juice.shop/part2/xxe.html)
-
+- [Kontra | XML Injection](https://application.security/free-application-security-training/owasp-top-10-xml-entity-injection)
 
 ## References
 

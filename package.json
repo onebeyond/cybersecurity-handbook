@@ -1,11 +1,11 @@
 {
   "name": "cybersecurity-handbook",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "license": "MIT",
   "scripts": {
-    "dev": "docz dev --prefixPaths",
-    "build": "docz build --prefixPaths ./docs/",
-    "serve": "docz serve --prefixPaths ./docs/"
+    "dev": "docz dev",
+    "build": "docz build",
+    "serve": "docz serve"
   },
   "dependencies": {
     "docz": "latest",

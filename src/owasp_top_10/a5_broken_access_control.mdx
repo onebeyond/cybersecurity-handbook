@@ -80,6 +80,41 @@ invalidation
 user or to privileged pages as a standard user. Accessing API
 with missing access controls for POST, PUT and DELETE.
 
+## Conceptual Attacks
+
+### Scenario #1: 
+The application uses unverified data in a SQL call
+that is accessing account information:
+
+```js
+const acct = req.params.query
+const query = session.createQuery(`FROM accounts
+WHERE accountId='${acct}'`);
+```
+
+An attacker simply modifies the 'acct' parameter in the browser to
+send whatever account number they want. If not properly
+verified, the attacker can access any user's account.
+
+```
+http://example.com/app/accountInfo?acct=notmyacct
+```
+
+
+### Scenario #2: 
+An attacker simply force browses to target URLs.
+Admin rights are required for access to the admin page.
+
+```
+http://example.com/app/getappInfo
+http://example.com/app/admin_getappInfo
+```
+
+If an unauthenticated user can access either page, it’s a flaw. If a
+non-admin can access the admin page, this is a flaw.
+
+
+
 ## How to Prevent
 
 Access control is only effective if enforced in trusted server-side
@@ -103,37 +138,6 @@ automated attack tooling.
 Developers and QA staff should include functional access control
 unit and integration tests.
 
-## Conceptual Attacks
-
-### Scenario #1: 
-The application uses unverified data in a SQL call
-that is accessing account information:
-
-```
-pstmt.setString(1, request.getParameter("acct"));
-ResultSet results = pstmt.executeQuery( );
-```
-
-An attacker simply modifies the 'acct' parameter in the browser to
-send whatever account number they want. If not properly
-verified, the attacker can access any user's account.
-
-```
-http://example.com/app/accountInfo?acct=notmyacct
-```
-
-
-### Scenario #2: 
-An attacker simply force browses to target URLs.
-Admin rights are required for access to the admin page.
-
-```
-http://example.com/app/getappInfo
-http://example.com/app/admin_getappInfo
-```
-
-If an unauthenticated user can access either page, it’s a flaw. If a
-non-admin can access the admin page, this is a flaw.
 
 
 ## Hacking Playground
