@@ -136,14 +136,16 @@ and the user is still authenticated.
 NEVER Store a password in plain text. 
 
 Some good practices to store passwords:
-1. Validate the password strength
-2. Use [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) with a high cost (>=15) or a secure salt system to generate the password hash.
-3. Optional: Force the users to change the password every 90 days maximum.
+
+- 1. Validate the password strength
+- 2. Use [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) with a high cost (>=15) or a secure salt system to generate the password hash.
+- 3. Optional: Force the users to change the password every 90 days maximum.
 
 Extra features:
-1. Use A Two-Factor Authentication System
-2. Ensure that the password Verify is not listed In known Password Dictionaries ([crackstation](https://crackstation.net/crackstation-wordlist-password-cracking-dictionary.htm), [danielmiessler/SecLists](https://github.com/danielmiessler/SecLists/tree/master/Passwords)...)
-3. Validate that the user/pass wasn't compromised using [haveibeenpwned API](https://haveibeenpwned.com/API/v3) or similar
+
+- 1. Use A Two-Factor Authentication System
+- 2. Ensure that the password Verify is not listed In known Password Dictionaries ([crackstation](https://crackstation.net/crackstation-wordlist-password-cracking-dictionary.htm), [danielmiessler/SecLists](https://github.com/danielmiessler/SecLists/tree/master/Passwords)...)
+- 3. Validate that the user/pass wasn't compromised using [haveibeenpwned API](https://haveibeenpwned.com/API/v3) or similar
 
 ```js
 const bcrypt = require('bcrypt'); //https://www.npmjs.com/package/bcrypt
@@ -177,15 +179,15 @@ NEVER use the session ID in the URL as your application will be very vulnerable:
 
 Some good practices to manage session IDs:
 - You can use cookies for session
-- You cna use Authentication headers if you are using JWT or similar 
+- You can use Authentication headers if you are using JWT or similar 
 - You need to ensure that all the traffic is handled using https
 - If you are using cookies, please ensure that you use [`secure`](https://github.com/expressjs/session#cookiesecure) and [`httpOnly`](https://github.com/expressjs/session#cookiehttponly) flags.
 - As well ensure that you are using Strict Transport Security (HSTS).
 - If you are using a proxy don't forget to enable [`trust proxy` in Express](http://expressjs.com/en/guide/behind-proxies.html)
 
 Extra:
-- Check the documentation for HTTP headers in this guide.
-- Check the details about Strict Transport Security (HSTS) in this guide.
+- Check the documentation for [HTTP headers in this guide](/http_headers/).
+- Check the details about [Strict Transport Security (HSTS) in this guide](/http_headers/hsts).
 
 ```js
 const express = require('express');

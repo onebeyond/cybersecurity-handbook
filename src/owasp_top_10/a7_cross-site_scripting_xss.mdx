@@ -110,9 +110,12 @@ libraries from permitted content delivery networks).
 The application uses untrusted data in the
 construction of the following HTML snippet without validation or
 escaping:
-```
-(String) page += "<input name='creditcard' type='TEXT'
-value='" + request.getParameter("CC") + "'>";
+
+```js
+const urlParams = new URLSearchParams(window.location.search);
+
+page.innerHTML += `<input name='creditcard' type='TEXT'
+value='${urlParams.get("CC")}'>`;
 ```
 
 The attacker modifies the ‘CC’ parameter in the browser to:

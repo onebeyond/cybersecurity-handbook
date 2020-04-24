@@ -109,9 +109,10 @@ unit and integration tests.
 The application uses unverified data in a SQL call
 that is accessing account information:
 
-```
-pstmt.setString(1, request.getParameter("acct"));
-ResultSet results = pstmt.executeQuery( );
+```js
+const acct = req.params.query
+const query = session.createQuery(`FROM accounts
+WHERE accountId='${acct}'`);
 ```
 
 An attacker simply modifies the 'acct' parameter in the browser to
