@@ -76,28 +76,6 @@ Serialization may be used in applications for:
 - HTTP cookies, HTML form parameters, API authentication
 tokens 
 
-## How to Prevent
-
-The only safe architectural pattern is not to accept serialized
-objects from untrusted sources or to use serialization mediums
-that only permit primitive data types.
-If that is not possible, consider one of more of the following:
-- Implementing integrity checks such as digital signatures on any
-serialized objects to prevent hostile object creation or data
-tampering.
-- Enforcing strict type constraints during deserialization before
-object creation as the code typically expects a definable set of
-classes. Bypasses to this technique have been demonstrated,
-so reliance solely on this is not advisable.
-- Isolating and running code that deserializes in low privilege
-environments when possible.
-- Logging deserialization exceptions and failures, such as where
-the incoming type is not the expected type, or the
-deserialization throws exceptions.
-- Restricting or monitoring incoming and outgoing network
-connectivity from containers or servers that deserialize.
-- Monitoring deserialization, alerting if a user deserializes
-constantly.
 
 ## Conceptual Attacks
 
@@ -127,6 +105,29 @@ admin privileges:
 a:4:{i:0;i:1;i:1;s:5:"Alice";i:2;s:5:"admin";
 i:3;s:32:"b6a8b3bea87fe0e05022f8f3c88bc960";}
 ```
+
+## How to Prevent
+
+The only safe architectural pattern is not to accept serialized
+objects from untrusted sources or to use serialization mediums
+that only permit primitive data types.
+If that is not possible, consider one of more of the following:
+- Implementing integrity checks such as digital signatures on any
+serialized objects to prevent hostile object creation or data
+tampering.
+- Enforcing strict type constraints during deserialization before
+object creation as the code typically expects a definable set of
+classes. Bypasses to this technique have been demonstrated,
+so reliance solely on this is not advisable.
+- Isolating and running code that deserializes in low privilege
+environments when possible.
+- Logging deserialization exceptions and failures, such as where
+the incoming type is not the expected type, or the
+deserialization throws exceptions.
+- Restricting or monitoring incoming and outgoing network
+connectivity from containers or servers that deserialize.
+- Monitoring deserialization, alerting if a user deserializes
+constantly.
 
 ## Hacking Playground
 

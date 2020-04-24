@@ -79,30 +79,6 @@ trojan login panels), attacks against the user's browser such as
 malicious software downloads, key logging, and other client-side
 attacks.
 
-## How to Prevent
-
-Preventing XSS requires separation of untrusted data from
-active browser content. This can be achieved by:
-- Using frameworks that automatically escape XSS by design,
-such as the latest Ruby on Rails, React JS. Learn the
-limitations of each framework's XSS protection and
-appropriately handle the use cases which are not covered.
-- Escaping untrusted HTTP request data based on the context in
-the HTML output (body, attribute, JavaScript, CSS, or URL) will
-resolve Reflected and Stored XSS vulnerabilities. The OWASP
-[Cheat Sheet 'XSS Prevention'](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html) has details on the required data
-escaping techniques.
-- Applying context-sensitive encoding when modifying the
-browser document on the client side acts against DOM XSS.
-When this cannot be avoided, similar context sensitive
-escaping techniques can be applied to browser APIs as
-described in the [OWASP Cheat Sheet 'DOM based XSS
-Prevention'](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).
-- Enabling a [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) is a defense-in-depth
-mitigating control against XSS. It is effective if no other
-vulnerabilities exist that would allow placing malicious code via
-local file includes (e.g. path traversal overwrites or vulnerable
-libraries from permitted content delivery networks).
 
 ## Conceptual Attacks
 
@@ -142,6 +118,33 @@ employ.
     - [DOM XSS](/attacks_explained/cross-site_scripting_xss#dom-xss)
 - The [Explained attack: Cross Site Request Forgery (CSRF) in this guide](/attacks_explained/cross_site_request_forgery_csrf)
 - The [Explained attack: Server-Side Request Forgery (SSRF) in this guide](/attacks_explained/server-side_request_forgery_ssrf)
+
+
+## How to Prevent
+
+Preventing XSS requires separation of untrusted data from
+active browser content. This can be achieved by:
+- Using frameworks that automatically escape XSS by design,
+such as the latest Ruby on Rails, React JS. Learn the
+limitations of each framework's XSS protection and
+appropriately handle the use cases which are not covered.
+- Escaping untrusted HTTP request data based on the context in
+the HTML output (body, attribute, JavaScript, CSS, or URL) will
+resolve Reflected and Stored XSS vulnerabilities. The OWASP
+[Cheat Sheet 'XSS Prevention'](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html) has details on the required data
+escaping techniques.
+- Applying context-sensitive encoding when modifying the
+browser document on the client side acts against DOM XSS.
+When this cannot be avoided, similar context sensitive
+escaping techniques can be applied to browser APIs as
+described in the [OWASP Cheat Sheet 'DOM based XSS
+Prevention'](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).
+- Enabling a [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) is a defense-in-depth
+mitigating control against XSS. It is effective if no other
+vulnerabilities exist that would allow placing malicious code via
+local file includes (e.g. path traversal overwrites or vulnerable
+libraries from permitted content delivery networks).
+
 
 ## Hacking Playground
 
