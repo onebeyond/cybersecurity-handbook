@@ -116,8 +116,8 @@ http://example.com/app/accountView?id=' or '1'='1
 ```
 
 This changes the meaning of both queries to return all the
-records from the accounts table. More dangerous attacks could
-modify or delete data, or even invoke stored procedures.
+records from the accounts table, since `'1'='1` will always evaluate TRUE. 
+More dangerous attacks could modify or delete data, or even invoke stored procedures.
 
 
 
@@ -162,6 +162,7 @@ The final query is:
 ```sql
 SELECT * FROM users WHERE user = 'admin'--' AND pass = 'pass'
 ```
+The problem here is that `"--"` renders everything that follows as a comment, thus returning the user info regardless of the password.
 
 In this particular case the mitigation can be done by using [`escape` function built-it in `mysql` library](https://github.com/mysqljs/mysql#escaping-query-values).
 
