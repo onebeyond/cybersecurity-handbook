@@ -1,5 +1,6 @@
 {
   "name": "cybersecurity-handbook",
+  "description": "Cybersecurity handbook by GuideSmiths",
   "version": "0.0.26",
   "license": "MIT",
   "scripts": {
