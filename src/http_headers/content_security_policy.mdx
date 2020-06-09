@@ -8,25 +8,25 @@ route: /http_headers/content_security_policy
 
 ## The attack
 
-There isn’t one specific attack that the CSP module prevents. The main thing is this: you don’t want anyone putting anything on your webpages that you don’t expect.
+There isn’t one specific attack the CSP module prevents. The main thing is this: you don’t want anyone putting anything on your webpages that you don’t expect.
 
 The nastiest attack is probably cross-site scripting (XSS), which is when a hacker puts malicious JavaScript onto your page. If I can run JavaScript on your page, I can do a lot of bad things, from stealing authentication cookies to logging every user action.
 
 There are other things attackers can do, even if they can’t execute JavaScript. For example, if I could put a tiny, transparent 1x1 image on your site, I could get a pretty good idea of how much traffic your site gets. If I could get a [vulnerable browser plugin](http://arstechnica.com/security/2015/07/two-new-flash-exploits-surface-from-hacking-team-combine-with-java-0-day/) like Flash to run, I could exploit its flaws and do things you don’t want!
 
-One of the tricky things about these injection attacks is that the browser doesn’t know what’s good and what’s bad. How can it tell the difference between a legitimate JavaScript file and a malicious one? In many cases, it can’t…unless you’ve defined a Content Security Policy.
+One of the tricky things about these injection attacks is the browser doesn’t know what’s good and what’s bad. How can it tell the difference between a legitimate JavaScript file and a malicious one? In many cases, it can’t…unless you’ve defined a Content Security Policy.
 
-Most modern browsers support a header called `Content-Security-Policy`, which is effectively a whitelist of things that are allowed to be on your page. You can whitelist JavaScript, CSS, images, plugins, and much more. Things are opt-in, so you’re saying “this stuff is allowed” instead of “this stuff is not allowed”.
+Most modern browsers support a header called `Content-Security-Policy`, which is effectively a whitelist of things allowed to be on your page. You can whitelist JavaScript, CSS, images, plugins, and much more. Things are opt-in, so you’re saying “this stuff is allowed” instead of “this stuff is not allowed”.
 
 ## The header
 
-Let’s say you’ve got a website that links to no external resources at all—just your stuff. You could set a header that looks like this:
+Let’s say you’ve got a website that links to no external resources at all, just your stuff. You could set a header that looks like this:
 
 ```
 Content-Security-Policy: default-src 'self'
 ```
 
-This effectively tells the browser “only load things that are from my own domain”. If you’re running example.com and a user tries to load `https://example.com/my-javascript.js`, it’ll work just fine. But if a user tries to load `http://evil.com/evil.js`, it won’t load at all!
+This effectively tells the browser “only load things from my own domain”. If you’re running example.com and a user tries to load `https://example.com/my-javascript.js`, it’ll work just fine. But if a user tries to load `http://evil.com/evil.js`, it won’t load at all!
 
 Now, let’s say you want to also allow CSS from Bootstrap’s CDN. You could set a CSP that looks like this:
 
@@ -99,7 +99,7 @@ app.use(helmet.contentSecurityPolicy({
 
 ### Report Only mode
 
-This module’s reportOnly option will switch the header to Content-Security-Policy-Report-Only. This instructs browsers to report violations to the reportUri (if specified) but it will not block any resources from loading.
+This modules reportOnly option will switch the header to Content-Security-Policy-Report-Only. This instructs browsers to report violations to the reportUri (if specified) but it will not block any resources from loading.
 
 ```js
 const helmet = require('helmet')
