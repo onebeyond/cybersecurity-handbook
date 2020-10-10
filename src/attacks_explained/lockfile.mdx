@@ -8,15 +8,15 @@ route: /attacks_explained/lockfile
 
 ## The Attack
 
-This attack is very specific to Nodejs ecosystem and it [was discovered in 2019](https://snyk.io/blog/why-npm-lockfiles-can-be-a-security-blindspot-for-injecting-malicious-modules/) by [Liran Tal](https://twitter.com/liran_tal).
+This attack is very specific to the Nodejs ecosystem and it [was discovered in 2019](https://snyk.io/blog/why-npm-lockfiles-can-be-a-security-blindspot-for-injecting-malicious-modules/) by [Liran Tal](https://twitter.com/liran_tal).
 
 It is quite common to include external dependencies in Nodejs. The ecosystem is heavily based in [NPM Registry (+1M packages)](https://www.npmjs.com/).
 
-Most projects manage their dependencies using Npm official client or Yarn. Since few years ago both tools introduced the lockfile concept to the ecosystem (`package-lock.json` and `yarn.lock`).
+Most projects manage their dependencies using the Npm official client or Yarn. A few years ago, both tools introduced the lockfile concept to the ecosystem (`package-lock.json` and `yarn.lock`).
 
-If the project have a lockfile available the package manager will install the dependencies from the lockfile as a primary source of truth. This lead us to a new vector where a malicious actor can submit a poison dependency trough the lockfile as most of the maintainers doesn't review the lockfiles during the PR Reviews.
+If the project has a lockfile available, the package manager will install the dependencies from the lockfile as the primary source of truth. This lead us to a new vector where a malicious actor can submit a poisonous dependency through the lockfile as most of maintainers don't review the lockfiles during the PR Reviews.
 
-This is regular `package-lock.json`.
+This is a regular `package-lock.json`.
 
 ```json
 {
@@ -39,7 +39,7 @@ This is regular `package-lock.json`.
 }
 ```
 
-The malicious attack take place when the `resolved` and `integrity` are not corresponding to official sources:
+The malicious attack takes place when the `resolved` and `integrity` are not corresponding to official sources:
 
 
 ```json
@@ -63,7 +63,7 @@ The malicious attack take place when the `resolved` and `integrity` are not corr
 }
 ```
 
-So the risk is that in this case is that `@babel/code-frame` is not installed from the NPM registry. This can lead to many attacks based on the npm lifecycle (pre-install, post-install...)
+So the risk in this case is that `@babel/code-frame` is not installed from the NPM registry. This can lead to many attacks based on the npm lifecycle (pre-install, post-install...)
 
 As an example of malicious script added in the poisoned version of `@babel/code-frame`
 ```
@@ -74,7 +74,7 @@ As an example of malicious script added in the poisoned version of `@babel/code-
 
 ## The solution
 
-There are no definitive solutions to avoid this attack but can be highly mitigated.
+There are no definitive solutions to avoid this attack, but it can be highly mitigated.
 
 ## Mitigation
 

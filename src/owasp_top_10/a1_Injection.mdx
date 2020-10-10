@@ -99,7 +99,8 @@ const query = `SELECT * FROM accounts WHERE
 custID='${request.getParameter("id")}'`;
 ```
 
-### Scenario #2: Similarly, an application’s blind trust in frameworks
+### Scenario #2:
+Similarly, an application’s blind trust in frameworks
 may result in queries that are still vulnerable, (e.g. Hibernate
 Query Language (HQL)):
 
@@ -246,7 +247,7 @@ app.post('/login', (req, res) => {
 });
 ```
 
-Using the previous malicious payload you get a safe query now:
+Using the previous malicious payload, you get a safe query now:
 
 ```sql
 db.users.find({user: { $in: [{ '$gt': '' }] }, pass: { $in: [{ '$gt': '' }] }});
@@ -311,13 +312,13 @@ app.get('/download_video/:id', (req, res) => {
 //..
 ```
 
-Note: This kind of bugs in the design can easily lead to Backdoors. Check out [this post for more details](https://snyk.io/blog/what-is-a-backdoor/). 
+Note: These kind of bugs in the design can easily lead to Backdoors. Check out [this post for more details](https://snyk.io/blog/what-is-a-backdoor/). 
 
 
 ### External content Injection:
 
 It is very common to use Content Delivery Networks (CDNs) to speed up our static content (css, js, etc...). If we are using a third party CDN we must use [Subresource Integrity
-validation](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) in our HTML in order to prevent the execution on malicious content in case that the CDN got compromised and the files were replaced by malicious ones.
+validation](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) in our HTML in order to prevent the execution on malicious content in case that the CDN is compromised and the files replaced by malicious ones.
 
 ```html
 <script src="https://example.com/example-framework.js"
@@ -326,7 +327,7 @@ validation](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_In
 </script>
 ```
 
-As you can see the `integrity` property contains the hashed value of the file that we are expecting. This will allow the browser to check the integrity of the files downloaded before the execution.
+As you can see the `integrity` property contains the hashed value of the file that we're expecting. This will allow the browser to check the integrity of the files downloaded before the execution.
 
 Note: Most of the CDN services already had included this features, please use them
 

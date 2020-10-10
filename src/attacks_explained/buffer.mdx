@@ -8,7 +8,7 @@ route: /attacks_explained/buffer
 
 ## The Attack
 
-This attack is very common in a lot of frameworks and coding languages and require a great low-level understanding.
+This attack is very common in a lot of frameworks and coding languages and requires a very low-level understanding.
 
 
 <iframe width="100%" height="450"
@@ -16,12 +16,12 @@ src="https://www.youtube.com/embed/1S0aBV-Waeo">
 </iframe>
 
 
-In Nodejs there was a bug in the `Buffer` core library that was [reported in 2016](https://github.com/nodejs/node/issues/4660#issue-126343377) by [Feross Aboukhadijeh (feross)](https://twitter.com/feross) that was fixed in Nodejs already.
+In Nodejs there was a bug in the `Buffer` core library that was [reported in 2016](https://github.com/nodejs/node/issues/4660#issue-126343377) by [Feross Aboukhadijeh (feross)](https://twitter.com/feross) and was fixed in Nodejs already.
 
 > If an attacker can make your program call the Buffer constructor with a Number argument, then they can make it allocate uninitialized memory from the node.js process. **This could potentially disclose TLS private keys, user data, or database passwords.**
 > by [Feross Aboukhadijeh](https://github.com/feross) in [Nodejs Github](https://github.com/nodejs/node/issues/4660#issue-126343377)
 
-Due compatibility reasons the old API still available. The Nodejs team added a warning message if you use it or if it was introduced by any of your dependencies.
+For compatibility reasons, the old API is still available. The Nodejs team added a warning message in case you use it or if it was introduced by any of your dependencies.
 
 ```
 (node:7147) [DEP0005] DeprecationWarning: 
@@ -55,7 +55,7 @@ Buffer.from(string, encoding)
 Buffer.from(...arguments)
 ```
 
-In case that you need to keep the legacy Buffer code running, please use [safe-buffer](https://www.npmjs.com/package/safe-buffer) as a fast mitigation option.
+In case you need to keep the legacy Buffer code running, please use [safe-buffer](https://www.npmjs.com/package/safe-buffer) as a fast mitigation option.
 
 
 ### Refs
