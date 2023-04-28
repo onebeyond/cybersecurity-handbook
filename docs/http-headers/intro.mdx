@@ -1,8 +1,9 @@
 ---
-name: Intro
-menu: HTTP Headers
-route: /http_headers/
+title: Intro
+sidebar_position: 1
 ---
+
+
 
 # HTTP Headers
 
@@ -14,18 +15,18 @@ As we are using Express on our stack, we highly recommend to extend the HTTP Hea
 
 We just adapted and extended [the Official documentation from Helmet](https://helmetjs.github.io/docs) in order to adapt the content to our needs as follow:
 
-- [Content Security Policy](/http_headers/content_security_policy)
-- [Cross Domain Policies](/http_headers/crossdomain)
-- [DNS Prefetch Control](/http_headers/dns_prefetch_control)
-- [Don't Sniff Mimetype](/http_headers/sniff_mimetype)
-- [Expect Certificate Transparency](/http_headers/expect_ct)
-- [Feature Policy](/http_headers/feature_policy)
-- [Frameguard](/http_headers/frameguard)
-- [Strict Transport Security](/http_headers/hsts)
-- [IE No Open](/http_headers/ie_no_open)
-- [Powered by](/http_headers/powered_by)
-- [Referrer Policy](/http_headers/referrer_policy)
-- [XSS Filter](/http_headers/xss_filter)
+- [Content Security Policy](/http-headers/content_security_policy)
+- [Cross Domain Policies](/http-headers/crossdomain)
+- [DNS Prefetch Control](/http-headers/dns_prefetch_control)
+- [Don't Sniff Mimetype](/http-headers/dont_sniff_mimetype)
+- [Expect Certificate Transparency](/http-headers/expect_ct)
+- [Feature Policy](/http-headers/feature_policy)
+- [Frameguard](/http-headers/frameguard)
+- [Strict Transport Security](/http-headers/hsts)
+- [IE No Open](/http-headers/ie_no_open)
+- [Powered by](/http-headers/powered_by)
+- [Referrer Policy](/http-headers/referrer_policy)
+- [XSS Filter](/http-headers/xss_filter)
 
 
 ## Using Helmet
@@ -38,13 +39,13 @@ By default Helmet will handle several headers just by adding the middleware to t
 
 #### Headers in scope
 
-- ✅ [DNS Prefetch Control](/http_headers/dns_prefetch_control)
-- ✅ [Frameguard](/http_headers/frameguard)
-- ✅ [Hide powered by](/http_headers/powered_by)
-- ✅ [Strict Transport Security](/http_headers/hsts)
-- ✅ [IE No Open](/http_headers/ie_no_open)
-- ✅ [Don't Sniff Mimetype](/http_headers/sniff_mimetype)
-- ✅ [XSS Filter](/http_headers/xss_filter)
+- ✅ [DNS Prefetch Control](/http-headers/dns_prefetch_control)
+- ✅ [Frameguard](/http-headers/frameguard)
+- ✅ [Hide powered by](/http-headers/powered_by)
+- ✅ [Strict Transport Security](/http-headers/hsts)
+- ✅ [IE No Open](/http-headers/ie_no_open)
+- ✅ [Don't Sniff Mimetype](/http-headers/dont_sniff_mimetype)
+- ✅ [XSS Filter](/http-headers/xss_filter)
 
 #### Code
 ```js
@@ -87,12 +88,12 @@ Connection: keep-alive
 
 As we are going to support Adobe products (reader, flash...) and we will use HTTPS. We will extend the Helmet rules. 
 
-Optional: you need to have a report URL in order to monitor the violations of [Expect Certificate Transparency](/http_headers/expect_ct#the-code) performed by old browsers
+Optional: you need to have a report URL in order to monitor the violations of [Expect Certificate Transparency](/http-headers/expect_ct#the-code) performed by old browsers
 
 #### Headers in scope
 - ✅ Include Basic Setup headers too
-- ✅ [Cross Domain Policies](/http_headers/crossdomain)
-- ✅ [Expect Certificate Transparency](/http_headers/expect_ct)
+- ✅ [Cross Domain Policies](/http-headers/crossdomain)
+- ✅ [Expect Certificate Transparency](/http-headers/expect_ct)
 
 
 #### Code
@@ -132,7 +133,7 @@ Connection: keep-alive
 
 ### Evolutionary rules 
 
-The most powerful headers for security are [Feature Policy](/http_headers/feature_policy) and [Content Security Policy](/http_headers/content_security_policy) as they will define what content source (images, js, css..) or features (xhr, geolocation, iframes...) is allowed to be part of our application. 
+The most powerful headers for security are [Feature Policy](/http-headers/feature_policy) and [Content Security Policy](/http-headers/content_security_policy) as they will define what content source (images, js, css..) or features (xhr, geolocation, iframes...) is allowed to be part of our application. 
 
 For sure these headers are going to evolve with our project requirements. By default we will lock down all the content sources and features in order to progressively open them. 
 
@@ -140,9 +141,9 @@ A a best practice, please include violation routes in order to track any potenti
 
 #### Headers in scope
 - ✅ Include Basic too...
-- ✅ [Content Security Policy](/http_headers/content_security_policy)
-- ✅ [Feature Policy](/http_headers/feature_policy)
-- ✅ [Referrer Policy](/http_headers/referrer_policy)
+- ✅ [Content Security Policy](/http-headers/content_security_policy)
+- ✅ [Feature Policy](/http-headers/feature_policy)
+- ✅ [Referrer Policy](/http-headers/referrer_policy)
 
 A great starter policy for CSP allows images, scripts, AJAX, form actions, and CSS from the same origin, and does not allow any other resources to load (eg object, frame, media, etc). It is a good starting point for many sites.
 
@@ -332,8 +333,8 @@ This will let you a lot of time to understand the current dependencies and valid
 
 There are other relevant headers that aren't part of Helmet.
 
-- [CORS](/http_headers/cors)
-- [ETag](/http_headers/etag)
+- [CORS](/http-headers/cors)
+- [ETag](/http-headers/etag)
 
 
 ### Refs:
