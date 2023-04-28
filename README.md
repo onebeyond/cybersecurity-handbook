@@ -8,7 +8,7 @@ _Image from [needpix.com](https://www.needpix.com/photo/download/963169/hacker-c
 ### Download manually
 
 ```sh
-git clone https://github.com/guidesmiths/cybersecurity-handbook
+git clone https://github.com/onebeyond/cybersecurity-handbook
 cd cybersecurity-handbook
 ```
 
