@@ -75,7 +75,7 @@ You are likely vulnerable:
 - If software developers do not test the compatibility of updated,
   upgraded, or patched libraries.
 - If you do not secure the components' configurations
-  (see [A6:2017-Security Misconfiguration](/owasp/a6_security_misconfiguration)).
+  (see [A6:2017-Security Misconfiguration](/owasp-top-10/a6_security_misconfiguration)).
 
 ## Conceptual Attacks
 
@@ -109,7 +109,7 @@ In order to get a full picture of this attack check [Explained attacks: Prototyp
 
 ### lockfile poison
 
-In order to get a full picture of this attack check [Explained attacks: Prototype Pollution in this guide](/attacks_explained/lockfile)
+In order to get a full picture of this attack check [Explained attacks: Prototype Pollution in this guide](/attacks_explained/poisoned_lockfile)
 
 ## How to Prevent
 
@@ -138,11 +138,6 @@ There should be a patch management process in place to:
   changes for the lifetime of the application or portfolio.
 - Define security policies about which components are allowed to be used in the organization
 - Use multi stage docker in order to use the minimum base possible like alpine once the image is built.
-
-#### Please review
-
-- The [Best practices for Npm and dependencies in this guide](/best_practices/npm_and_dependencies)
-- The [Best practices for Docker in this guide](/best_practices/docker)
 
 ## Hacking Playground
 

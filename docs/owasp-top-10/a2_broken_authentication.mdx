@@ -70,7 +70,7 @@ There may be authentication weaknesses if the application:
 - Uses weak or ineffective credential recovery and forgotpassword processes, such as "knowledge-based answers",
   which cannot be made safe.
 - Uses plain text, encrypted, or weakly hashed passwords (see
-  [A3:2017-Sensitive Data Exposure](/owasp/a3_sensitived_data_exposure)).
+  [A3:2017-Sensitive Data Exposure](/owasp-top-10/a3_sensitive_data_exposure)).
 - Has missing or ineffective multi-factor authentication.
 - Exposes Session IDs in the URL (e.g., URL rewriting).
 - Does not rotate Session IDs after successful login.
@@ -162,8 +162,8 @@ Some good practices to manage session IDs:
 
 Extra:
 
-- Check the documentation for [HTTP headers in this guide](/http_headers/).
-- Check the details about [Strict Transport Security (HSTS) in this guide](/http_headers/hsts).
+- Check the documentation for [HTTP headers in this guide](/http-headers/intro).
+- Check the details about [Strict Transport Security (HSTS) in this guide](/http-headers/hsts).
 
 ```js
 const express = require('express');
