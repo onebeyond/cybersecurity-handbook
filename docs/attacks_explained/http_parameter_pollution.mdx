@@ -7,12 +7,13 @@ sidebar_position: 4
 
 ## The Attack
 
-<iframe width="100%" height="450"
-src="https://www.youtube.com/embed/QVZBl8yxVX0">
-</iframe>
+<iframe
+  width='100%'
+  height='450'
+  src='https://www.youtube.com/embed/QVZBl8yxVX0'
+></iframe>
 
-
-There are some corner cases that the [HTTP Specification](https://tools.ietf.org/html/rfc2616) doesn't cover like HTTP Parameter Pollution or HTTP. 
+There are some corner cases that the [HTTP Specification](https://tools.ietf.org/html/rfc2616) doesn't cover like HTTP Parameter Pollution or HTTP.
 
 Check out this code:
 
@@ -33,13 +34,11 @@ http://localhost:8080/films
 {}
 ```
 
-
 ```
 http://localhost:8080/films?actor=Me
 
 {"actor":"Me"}
 ```
-
 
 ```
 http://localhost:8080/films?actor=Me&director=You
@@ -57,7 +56,6 @@ In the case of Express if the query param is redefined again we will receive an 
 - Type Errors uncaught that can lead to DoS attacks
 - Unexpected data that can modify the behavior of our application
 
-
 ## The solution
 
 - Check the expected type and implement a strong error handling mechanism.
@@ -67,9 +65,9 @@ const express = require('express')
 const app = express()
 
 app.get('/films', (req, res) => {
-    const { query } = req
-    let actor = Array.isArray(query.actor) ? query.actor[0] : query.actor;
-    res.send(`The actor is ${actor}`)
+  const { query } = req
+  let actor = Array.isArray(query.actor) ? query.actor[0] : query.actor
+  res.send(`The actor is ${actor}`)
 })
 
 app.listen(8080, () => console.log('Check http://localhost:8080'))
@@ -83,7 +81,7 @@ The actor is Me
 ```
 http://localhost:8080/films?actor=Me&actor=You
 The actor is Me
-``` 
+```
 
 ### Refs
 

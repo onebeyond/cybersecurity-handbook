@@ -5,13 +5,11 @@ sidebar_position: 13
 
 # HTTP Header: Hide Powered-By
 
-
 ## The attack
 
 By default [Express will add an `X-Powered-by: Express` header](https://github.com/expressjs/express/blob/master/lib/middleware/init.js#L30) in to your application and there are [no plans to remove it](https://github.com/expressjs/express/pull/2813#issuecomment-159270428)
 
 As an example you can see almost 1 million servers with the `X-Powered-By: Express` active in [Shodan queries](https://www.shodan.io/search?query=X-Powered-By%3A+Express)
-
 
 ## The header
 
@@ -19,7 +17,7 @@ Even if this header does not represent a vulnerability still being very relevant
 
 ## The code
 
-Helmet will hide by default the `x-powered-by`. 
+Helmet will hide by default the `x-powered-by`.
 
 ```js
 const helmet = require('helmet')

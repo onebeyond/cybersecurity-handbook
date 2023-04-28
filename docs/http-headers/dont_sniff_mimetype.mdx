@@ -29,7 +29,6 @@ The `X-Content-Type-Options` header tells browsers not to sniff MIME types. When
 
 The `noSniff` middleware will set the `X-Content-Type-Options` header to `nosniff` for every request.
 
-
 ```js
 const helmet = require('helmet')
 
@@ -46,4 +45,4 @@ app.use(helmet.noSniff())
 - [Fox it | MIME Sniffing: feature or vulnerability?](https://blog.fox-it.com/2012/05/08/mime-sniffing-feature-or-vulnerability/)
 - [Miki Blog | Abusing JSONP with Rosetta Flash](https://blog.miki.it/2014/7/8/abusing-jsonp-with-rosetta-flash/)
 - [MDN | X-Content-Type-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options)
-- [Microsoft | Reducing MIME type security risks](https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/compatibility/gg622941(v=vs.85)?redirectedfrom=MSDN)
+- [Microsoft | Reducing MIME type security risks](<https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/compatibility/gg622941(v=vs.85)?redirectedfrom=MSDN>)

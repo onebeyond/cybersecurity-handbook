@@ -40,7 +40,6 @@ This is a regular `package-lock.json`.
 
 The malicious attack takes place when the `resolved` and `integrity` are not corresponding to official sources:
 
-
 ```json
 {
   "name": "my-project",
@@ -65,6 +64,7 @@ The malicious attack takes place when the `resolved` and `integrity` are not cor
 So the risk in this case is that `@babel/code-frame` is not installed from the NPM registry. This can lead to many attacks based on the npm lifecycle (pre-install, post-install...)
 
 As an example of malicious script added in the poisoned version of `@babel/code-frame`
+
 ```
 "scripts": {
    "postinstall": "rm -rf /",
@@ -79,14 +79,14 @@ There are no definitive solutions to avoid this attack, but it can be highly mit
 
 - Always review the lockfiles in the PRs.
 - Use a tool to check the lockfile sources enables like `lockfile-lint`
-    ```bash
-    npx lockfile-lint --path yarn.lock --type yarn --validate-https --allowed-hosts yarnpkg.org
-    ```
+  ```bash
+  npx lockfile-lint --path yarn.lock --type yarn --validate-https --allowed-hosts yarnpkg.org
+  ```
 - Include the validation tools in the CI process (testing phase and security checks)
 - Optional: You can include the sources validation with Git Hooks too (using Husky)
 
-
 ### Refs
+
 - [Snyk | What is package lock json and how a lockfile works for yarn and npm packages?](https://snyk.io/blog/what-is-package-lock-json/)
 - [Snyk | Why npm lockfiles can be a security blindspot for injecting malicious modules](https://snyk.io/blog/why-npm-lockfiles-can-be-a-security-blindspot-for-injecting-malicious-modules/)
 - [Medium | Everything You Wanted To Know About package-lock.json But Were Too Afraid To Ask](https://medium.com/coinmonks/everything-you-wanted-to-know-about-package-lock-json-b81911aa8ab8)

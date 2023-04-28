@@ -7,10 +7,11 @@ sidebar_position: 3
 
 ## The Attack
 
-<iframe width="100%" height="450"
-src="https://www.youtube.com/embed/vRBihr41JTo">
-</iframe>
-
+<iframe
+  width='100%'
+  height='450'
+  src='https://www.youtube.com/embed/vRBihr41JTo'
+></iframe>
 
 ### Steps
 
@@ -22,17 +23,18 @@ _Image from [Christopher Makarem](https://medium.com/iocscan/cross-site-request-
 This attack can be mitigated by using a different and personalized token in each request. In nodejs, the [csurf](https://npmjs.org/package/csurf) library is highly recommended.
 
 Implementation for:
+
 - [Server render templates](https://www.npmjs.com/package/csurf#simple-express-example)
 - [Ajax](https://www.npmjs.com/package/csurf#using-ajax)
 - [Single Page Application (SPA)](https://www.npmjs.com/package/csurf#single-page-application-spa)
 
-
 ### Other
+
 - The [Recommendations for HTTP Headers in this guide](/http_headers/)
 - The [Best practices for Express in this guide](/best_practices/express)
 - The [Best practices for React in this guide](/best_practices/react)
 
-
 ### Refs
+
 - [Computerphile | Cross Site Request Forgery](https://www.youtube.com/watch?v=vRBihr41JTo)
 - [Christopher Makarem | Cross Site Request Forgery (CSRF)](https://medium.com/iocscan/cross-site-request-forgery-csrf-f2134359a385)

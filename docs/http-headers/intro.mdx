@@ -3,11 +3,9 @@ title: Intro
 sidebar_position: 1
 ---
 
-
-
 # HTTP Headers
 
-The HTTP Headers are one of the most important tools to help you manage the security. 
+The HTTP Headers are one of the most important tools to help you manage the security.
 
 ## Understanding Helmet
 
@@ -28,7 +26,6 @@ We just adapted and extended [the Official documentation from Helmet](https://he
 - [Referrer Policy](/http-headers/referrer_policy)
 - [XSS Filter](/http-headers/xss_filter)
 
-
 ## Using Helmet
 
 Helmet is a very simple and customizable. We will split the setup in three steps (Basic, extended and evolutionary)
@@ -48,13 +45,14 @@ By default Helmet will handle several headers just by adding the middleware to t
 - ✅ [XSS Filter](/http-headers/xss_filter)
 
 #### Code
+
 ```js
 const helmet = require('helmet')
 
 app.use(helmet())
 ```
 
-#### Response headers 
+#### Response headers
 
 Express by default without helmet:
 
@@ -69,6 +67,7 @@ Connection: keep-alive
 ```
 
 With Helmet:
+
 ```
 HTTP/1.1 200 OK
 X-DNS-Prefetch-Control: off
@@ -86,33 +85,36 @@ Connection: keep-alive
 
 ### Extended rules
 
-As we are going to support Adobe products (reader, flash...) and we will use HTTPS. We will extend the Helmet rules. 
+As we are going to support Adobe products (reader, flash...) and we will use HTTPS. We will extend the Helmet rules.
 
 Optional: you need to have a report URL in order to monitor the violations of [Expect Certificate Transparency](/http-headers/expect_ct#the-code) performed by old browsers
 
 #### Headers in scope
+
 - ✅ Include Basic Setup headers too
 - ✅ [Cross Domain Policies](/http-headers/crossdomain)
 - ✅ [Expect Certificate Transparency](/http-headers/expect_ct)
 
-
 #### Code
+
 ```js
 const helmet = require('helmet')
 
 app.use(helmet())
 
 // Sets Expect-CT: enforce; max-age=30;
-app.use(helmet.expectCt({
-  enforce: true,
-  maxAge: 30 // 30 minutes
-}))
+app.use(
+  helmet.expectCt({
+    enforce: true,
+    maxAge: 30 // 30 minutes
+  })
+)
 
 // Sets "X-Permitted-Cross-Domain-Policies: none"
 app.use(helmet.permittedCrossDomainPolicies())
 ```
 
-#### Response headers 
+#### Response headers
 
 ```
 HTTP/1.1 200 OK
@@ -131,15 +133,16 @@ Date: Wed, 08 Apr 2020 07:21:28 GMT
 Connection: keep-alive
 ```
 
-### Evolutionary rules 
+### Evolutionary rules
 
-The most powerful headers for security are [Feature Policy](/http-headers/feature_policy) and [Content Security Policy](/http-headers/content_security_policy) as they will define what content source (images, js, css..) or features (xhr, geolocation, iframes...) is allowed to be part of our application. 
+The most powerful headers for security are [Feature Policy](/http-headers/feature_policy) and [Content Security Policy](/http-headers/content_security_policy) as they will define what content source (images, js, css..) or features (xhr, geolocation, iframes...) is allowed to be part of our application.
 
-For sure these headers are going to evolve with our project requirements. By default we will lock down all the content sources and features in order to progressively open them. 
+For sure these headers are going to evolve with our project requirements. By default we will lock down all the content sources and features in order to progressively open them.
 
 A a best practice, please include violation routes in order to track any potential issue.
 
 #### Headers in scope
+
 - ✅ Include Basic too...
 - ✅ [Content Security Policy](/http-headers/content_security_policy)
 - ✅ [Feature Policy](/http-headers/feature_policy)
@@ -148,16 +151,19 @@ A a best practice, please include violation routes in order to track any potenti
 A great starter policy for CSP allows images, scripts, AJAX, form actions, and CSS from the same origin, and does not allow any other resources to load (eg object, frame, media, etc). It is a good starting point for many sites.
 
 #### Code
+
 ```js
 const helmet = require('helmet')
 
 app.use(helmet())
 
 // Sets Expect-CT: enforce; max-age=30;
-app.use(helmet.expectCt({
-  enforce: true,
-  maxAge: 30 // 30 minutes
-}))
+app.use(
+  helmet.expectCt({
+    enforce: true,
+    maxAge: 30 // 30 minutes
+  })
+)
 
 // Sets "X-Permitted-Cross-Domain-Policies: none"
 app.use(helmet.permittedCrossDomainPolicies())
@@ -176,20 +182,22 @@ style-src 'self';
 base-uri 'self';
 form-action 'self'"
 */
-app.use(helmet.contentSecurityPolicy({
-  directives: {
-    defaultSrc: ["'none'"],
-    scriptSrc: ["'self'"],
-    connectSrc: ["'self'"],
-    imgSrc: ["'self'"],
-    styleSrc: ["'self'"],
-    baseUri: ["'self'"],
-    formAction: ["'self'"],
-    reportUri: '/report-csp-violation',
-    upgradeInsecureRequests: true,
-    workerSrc: false
-  }
-}))
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'none'"],
+      scriptSrc: ["'self'"],
+      connectSrc: ["'self'"],
+      imgSrc: ["'self'"],
+      styleSrc: ["'self'"],
+      baseUri: ["'self'"],
+      formAction: ["'self'"],
+      reportUri: '/report-csp-violation',
+      upgradeInsecureRequests: true,
+      workerSrc: false
+    }
+  })
+)
 
 /*
 Sets "Feature-Policy: sync-script 'self';
@@ -226,48 +234,49 @@ wake-lock 'none';
 xr 'none'"
 */
 
-app.use(helmet.featurePolicy({
-  features: {
-    syncScript: ["'self'"],
-    syncXhr: ["'self'"],
-    accelerometer: ["'none'"],
-    ambientLightSensor: ["'none'"],
-    autoplay: ["'none'"],
-    camera: ["'none'"],
-    documentDomain: ["'none'"],
-    documentWrite: ["'none'"],
-    encryptedMedia: ["'none'"],
-    fontDisplayLateSwap: ["'none'"],
-    fullscreen: ["'none'"],
-    geolocation: ["'none'"],
-    gyroscope: ["'none'"],
-    layoutAnimations: ["'none'"],
-    legacyImageFormats: ["'none'"],
-    loadingFrameDefaultEager: ["'none'"],
-    magnetometer: ["'none'"],
-    microphone: ["'none'"],
-    midi: ["'none'"],
-    oversizedImages: ["'none'"],
-    payment: ["'none'"],
-    pictureInPicture: ["'none'"],
-    serial: ["'none'"],
-    speaker: ["'none'"],
-    unoptimizedImages: ["'none'"],
-    unoptimizedLosslessImages: ["'none'"],
-    unoptimizedLossyImages: ["'none'"],
-    unsizedMedia: ["'none'"],
-    usb: ["'none'"],
-    verticalScroll: ["'none'"],
-    vibrate: ["'none'"],
-    vr: ["'none'"],
-    wakeLock: ["'none'"],
-    xr: ["'none'"]
-  }
-}))
-
+app.use(
+  helmet.featurePolicy({
+    features: {
+      syncScript: ["'self'"],
+      syncXhr: ["'self'"],
+      accelerometer: ["'none'"],
+      ambientLightSensor: ["'none'"],
+      autoplay: ["'none'"],
+      camera: ["'none'"],
+      documentDomain: ["'none'"],
+      documentWrite: ["'none'"],
+      encryptedMedia: ["'none'"],
+      fontDisplayLateSwap: ["'none'"],
+      fullscreen: ["'none'"],
+      geolocation: ["'none'"],
+      gyroscope: ["'none'"],
+      layoutAnimations: ["'none'"],
+      legacyImageFormats: ["'none'"],
+      loadingFrameDefaultEager: ["'none'"],
+      magnetometer: ["'none'"],
+      microphone: ["'none'"],
+      midi: ["'none'"],
+      oversizedImages: ["'none'"],
+      payment: ["'none'"],
+      pictureInPicture: ["'none'"],
+      serial: ["'none'"],
+      speaker: ["'none'"],
+      unoptimizedImages: ["'none'"],
+      unoptimizedLosslessImages: ["'none'"],
+      unoptimizedLossyImages: ["'none'"],
+      unsizedMedia: ["'none'"],
+      usb: ["'none'"],
+      verticalScroll: ["'none'"],
+      vibrate: ["'none'"],
+      vr: ["'none'"],
+      wakeLock: ["'none'"],
+      xr: ["'none'"]
+    }
+  })
+)
 ```
 
-#### Response headers 
+#### Response headers
 
 ```
 Connection: keep-alive
@@ -288,16 +297,17 @@ X-Permitted-Cross-Domain-Policies: none
 X-XSS-Protection: 1; mode=block
 ```
 
-
 #### CSP Violations
 
 Note: If you’re using a CSRF module like csurf, you might have problems handling these violations without a valid CSRF token. The fix is to put your CSP report route above csurf middleware.
 
 ```js
 // You need a JSON parser first.
-app.use(bodyParser.json({
-  type: ['json', 'application/csp-report']
-}))
+app.use(
+  bodyParser.json({
+    type: ['json', 'application/csp-report']
+  })
+)
 
 app.post('/report-csp-violation', (req, res) => {
   if (req.body) {
@@ -307,12 +317,8 @@ app.post('/report-csp-violation', (req, res) => {
   }
 
   res.status(204).end()
-}) 
+})
 ```
-
-
-
-
 
 ## Implementation Strategies
 
@@ -324,10 +330,9 @@ If you are building a site from scratch you can always follow the lock down stra
 
 ### Webapp refactor
 
-If there is a running platform, the best approach is to collect data before implementing any real policy. Use the `reportOnly: true` setup in order to get all the violations without affecting the current users. 
+If there is a running platform, the best approach is to collect data before implementing any real policy. Use the `reportOnly: true` setup in order to get all the violations without affecting the current users.
 
 This will let you a lot of time to understand the current dependencies and validate the rules based on a product requirements.
-
 
 ## Other headers
 
@@ -335,7 +340,6 @@ There are other relevant headers that aren't part of Helmet.
 
 - [CORS](/http-headers/cors)
 - [ETag](/http-headers/etag)
-
 
 ### Refs:
 

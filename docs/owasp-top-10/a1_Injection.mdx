@@ -3,12 +3,10 @@ title: A1 Injection
 sidebar_position: 2
 ---
 
-
 # A1 Injection
 
 ![xkcd - Exploits of a Mom](/img/xkcd_327.png)
 _Image from [xkcd](https://xkcd.com/327/)_
-
 
 ## Definition
 
@@ -26,9 +24,11 @@ interpreter into executing unintended commands or accessing data without proper 
 
 ## Context
 
-<iframe width="100%" height="450"
-src="https://www.youtube.com/embed/rWHvp7rUka8">
-</iframe>
+<iframe
+  width='100%'
+  height='450'
+  src='https://www.youtube.com/embed/rWHvp7rUka8'
+></iframe>
 
 Almost any source of data can be an injection vector, environment
 variables, parameters, external and
@@ -43,11 +43,9 @@ in SQL, LDAP, XPath, or NoSQL queries, OS
 commands, XML parsers, SMTP headers,
 expression languages, and ORM queries.
 
-
 Injection flaws are easy to discover when examining
 code. Scanners and fuzzers can help attackers find
 injection flaws.
-
 
 Injection can result in data loss,
 corruption, or disclosure to
@@ -57,56 +55,54 @@ accountability, or denial of access.
 Injection can sometimes lead to
 complete host takeover.
 
-
 The business impact depends on the
 needs of the application and data.
-
 
 ## Is the Application Vulnerable?
 
 An application is vulnerable to attack when:
 
 - User-supplied data is not validated, filtered, or sanitized by the
-application.
+  application.
 - Dynamic queries or non-parameterized calls without contextaware escaping are used directly in the interpreter.
 - Hostile data is used within object-relational mapping (ORM)
-search parameters to extract additional, sensitive records.
+  search parameters to extract additional, sensitive records.
 - Hostile data is directly used or concatenated, such that the
-SQL or command contains both structure and hostile data in
-dynamic queries, commands, or stored procedures.
-Some of the more common injections are SQL, NoSQL, OS
-command, Object Relational Mapping (ORM), LDAP, and
-Expression Language (EL) or Object Graph Navigation Library
-(OGNL) injection. The concept is identical among all interpreters.
-Source code review is the best method of detecting if
-applications are vulnerable to injections, closely followed by
-thorough automated testing of all parameters, headers, URL,
-cookies, JSON, SOAP, and XML data inputs. Organizations can
-include static source (SAST) and dynamic application test
-(DAST) tools into the CI/CD pipeline to identify newly introduced
-injection flaws prior to production deployment. 
-
+  SQL or command contains both structure and hostile data in
+  dynamic queries, commands, or stored procedures.
+  Some of the more common injections are SQL, NoSQL, OS
+  command, Object Relational Mapping (ORM), LDAP, and
+  Expression Language (EL) or Object Graph Navigation Library
+  (OGNL) injection. The concept is identical among all interpreters.
+  Source code review is the best method of detecting if
+  applications are vulnerable to injections, closely followed by
+  thorough automated testing of all parameters, headers, URL,
+  cookies, JSON, SOAP, and XML data inputs. Organizations can
+  include static source (SAST) and dynamic application test
+  (DAST) tools into the CI/CD pipeline to identify newly introduced
+  injection flaws prior to production deployment.
 
 ## Conceptual Attacks
 
+### Scenario #1:
 
-### Scenario #1: 
 An application uses untrusted data in the
 construction of the following vulnerable SQL call:
 
 ```js
 const query = `SELECT * FROM accounts WHERE
-custID='${request.getParameter("id")}'`;
+custID='${request.getParameter('id')}'`
 ```
 
 ### Scenario #2:
+
 Similarly, an application’s blind trust in frameworks
 may result in queries that are still vulnerable, (e.g. Hibernate
 Query Language (HQL)):
 
 ```js
 const HQLQuery = session.createQuery(`FROM accounts
-WHERE custID='${request.getParameter("id")}'`);
+WHERE custID='${request.getParameter('id')}'`)
 ```
 
 In both cases, the attacker modifies the ‘id’ parameter value in
@@ -117,18 +113,17 @@ http://example.com/app/accountView?id=' or '1'='1
 ```
 
 This changes the meaning of both queries to return all the
-records from the accounts table, since `'1'='1` will always evaluate TRUE. 
+records from the accounts table, since `'1'='1` will always evaluate TRUE.
 More dangerous attacks could modify or delete data, or even invoke stored procedures.
-
-
 
 ## Example Attack Scenarios
 
-### SQL Injection: 
+### SQL Injection:
 
-This example is based on  [Scott Smith example about Injections](http://scottksmith.com/blog/2015/06/08/secure-node-apps-against-owasp-top-10-injection/)
+This example is based on [Scott Smith example about Injections](http://scottksmith.com/blog/2015/06/08/secure-node-apps-against-owasp-top-10-injection/)
 
 Our server code:
+
 ```js
 const { mysqlConfig } = require('./config)
 const express = require('express');
@@ -151,6 +146,7 @@ app.listen(8080);
 ```
 
 our malicious request:
+
 ```
 POST /login HTTP/1.1
 Host: example.com
@@ -160,26 +156,28 @@ user=admin'--&pass=pass
 ```
 
 The final query is:
+
 ```sql
 SELECT * FROM users WHERE user = 'admin'--' AND pass = 'pass'
 ```
+
 The problem here is that `"--"` renders everything that follows as a comment, thus returning the user info regardless of the password.
 
 In this particular case the mitigation can be done by using [`escape` function built-it in `mysql` library](https://github.com/mysqljs/mysql#escaping-query-values).
 
 ```js
 //...
-const connection = mysql.createConnection(mysqlConfig);
+const connection = mysql.createConnection(mysqlConfig)
 //..
 
 app.post('/login', (req, res) => {
-  const user = connection.escape(req.body.user);
-  const pass = connection.escape(req.body.pass);
+  const user = connection.escape(req.body.user)
+  const pass = connection.escape(req.body.pass)
 
-  const sql = `SELECT * FROM users WHERE user = '${user}' AND pass = '${pass}'`;
+  const sql = `SELECT * FROM users WHERE user = '${user}' AND pass = '${pass}'`
   console.log(`SQL to be executed: ${sql}`)
   // connection.query(sql, (err, results) => {})
-});
+})
 //..
 ```
 
@@ -189,12 +187,12 @@ Using the previous malicious payload you get a safe query:
 SELECT * FROM users WHERE user = 'admin''--' AND pass = 'pass'
 ```
 
-
 ### NON-SQL Injection:
 
-This example is based on  [Scott Smith example about Injections](http://scottksmith.com/blog/2015/06/08/secure-node-apps-against-owasp-top-10-injection/)
+This example is based on [Scott Smith example about Injections](http://scottksmith.com/blog/2015/06/08/secure-node-apps-against-owasp-top-10-injection/)
 
 Our server code:
+
 ```js
 const MongoClient = require('mongodb').MongoClient;
 const { dbName, url } = require('./config).mongoConfig;
@@ -222,6 +220,7 @@ app.post('/login', (req, res) => {
 ```
 
 our malicious request:
+
 ```
 POST /login HTTP/1.1
 Host: example.com
@@ -234,17 +233,18 @@ Content-Type: application/json
 ```
 
 The final query will return all the users within the user collection
+
 ```js
-db.users.find({user: { '$gt': '' }, pass: { '$gt': '' }});
+db.users.find({ user: { $gt: '' }, pass: { $gt: '' } })
 ```
 
 In this particular case the mitigation can be done by using an explicit query selector.
 
 ```js
 app.post('/login', (req, res) => {
-  const { user, pass } = req.body;
-  db.users.find({user: { $in: [user] }, pass: { $in: [pass] }});
-});
+  const { user, pass } = req.body
+  db.users.find({ user: { $in: [user] }, pass: { $in: [pass] } })
+})
 ```
 
 Using the previous malicious payload, you get a safe query now:
@@ -253,36 +253,39 @@ Using the previous malicious payload, you get a safe query now:
 db.users.find({user: { $in: [{ '$gt': '' }] }, pass: { $in: [{ '$gt': '' }] }});
 ```
 
-
 ### OS Command Injection:
 
 In this case we want to use [youtube-dl](https://github.com/ytdl-org/youtube-dl/blob/master/README.md) to download a cool [youtube video](https://www.youtube.com/watch?v=KEkrWRHCDQU) to our local machine.
 
-As `youtube-dl` is a Python library we will use [process child](https://nodejs.org/api/child_process.html) to run it in Nodejs. 
+As `youtube-dl` is a Python library we will use [process child](https://nodejs.org/api/child_process.html) to run it in Nodejs.
 
 Note: This example is non very common, but is much better than the typical [`eval()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval) example.
 
-
 Our server code:
+
 ```js
-const { exec } = require('child_process');
-const express = require('express');
-const app = express();
+const { exec } = require('child_process')
+const express = require('express')
+const app = express()
 
 // Routes
 app.get('/download_video/:id', (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params
   const cmd = `youtube-dl https://www.youtube.com/watch\?v\=${id}`
   exec(cmd, (error, stdout, stderr) => {
-      if(error || stderr) return res.status(500).send(`😱 The video with id:${id} was not downloaded!`)
-      res.send(`🎉 Video with id:${id} was downloaded!. ${stdout}`)
+    if (error || stderr)
+      return res
+        .status(500)
+        .send(`😱 The video with id:${id} was not downloaded!`)
+    res.send(`🎉 Video with id:${id} was downloaded!. ${stdout}`)
   })
-});
+})
 
-app.listen(8080);
+app.listen(8080)
 ```
 
 Our malicious request:
+
 ```
 GET /download_video/KEkrWRHCDQU; printenv
 ```
@@ -292,28 +295,31 @@ This request will be translated to `youtube-dl https://www.youtube.com/watch?v=K
 To prevent this specific attack you can use a regex to validate the [Youtube video id](https://markmail.org/message/jb6nsveqs7hya5la) with a regex: `/^[a-zA-Z0-9_-]{11}$/` and avoid to include the `stdout` or raw errors in the response.
 
 Our server code:
+
 ```js
 //..
-const idValidation = (id) => {
-    const re = /^[a-zA-Z0-9_-]{11}$/;
-    return re.test(String(id));
+const idValidation = id => {
+  const re = /^[a-zA-Z0-9_-]{11}$/
+  return re.test(String(id))
 }
 
 // Routes
 app.get('/download_video/:id', (req, res) => {
-  const { id } = req.params;
-  if(!idValidation(id)) return res.status(400).send("You sent an invalid id!")
+  const { id } = req.params
+  if (!idValidation(id)) return res.status(400).send('You sent an invalid id!')
   const cmd = `youtube-dl https://www.youtube.com/watch\?v\=${id}`
   exec(cmd, (error, stdout, stderr) => {
-      if(error || stderr) return res.status(500).send(`😱 The video with id:${id} was not downloaded!`)
-      res.send(`🎉 Video with id:${id} was downloaded!.`)
+    if (error || stderr)
+      return res
+        .status(500)
+        .send(`😱 The video with id:${id} was not downloaded!`)
+    res.send(`🎉 Video with id:${id} was downloaded!.`)
   })
-});
+})
 //..
 ```
 
-Note: These kind of bugs in the design can easily lead to Backdoors. Check out [this post for more details](https://snyk.io/blog/what-is-a-backdoor/). 
-
+Note: These kind of bugs in the design can easily lead to Backdoors. Check out [this post for more details](https://snyk.io/blog/what-is-a-backdoor/).
 
 ### External content Injection:
 
@@ -321,10 +327,11 @@ It is very common to use Content Delivery Networks (CDNs) to speed up our static
 validation](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) in our HTML in order to prevent the execution on malicious content in case that the CDN is compromised and the files replaced by malicious ones.
 
 ```html
-<script src="https://example.com/example-framework.js"
-    integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC"
-    crossorigin="anonymous">
-</script>
+<script
+  src="https://example.com/example-framework.js"
+  integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC"
+  crossorigin="anonymous"
+></script>
 ```
 
 As you can see the `integrity` property contains the hashed value of the file that we're expecting. This will allow the browser to check the integrity of the files downloaded before the execution.
@@ -339,23 +346,23 @@ Preventing injection requires keeping data separate from
 commands and queries
 
 - The preferred option is to use a safe API, which avoids the use
-of the interpreter entirely or provides a parameterized interface,
-or migrate to use Object Relational Mapping Tools (ORMs).
-Note: Even when parameterized, stored procedures can still
-introduce SQL injection if PL/SQL or T-SQL concatenates
-queries and data, or executes hostile data with EXECUTE
-IMMEDIATE or exec().
+  of the interpreter entirely or provides a parameterized interface,
+  or migrate to use Object Relational Mapping Tools (ORMs).
+  Note: Even when parameterized, stored procedures can still
+  introduce SQL injection if PL/SQL or T-SQL concatenates
+  queries and data, or executes hostile data with EXECUTE
+  IMMEDIATE or exec().
 - Use positive or "whitelist" server-side input validation. This is
-not a complete defense as many applications require special
-characters, such as text areas or APIs for mobile applications.
+  not a complete defense as many applications require special
+  characters, such as text areas or APIs for mobile applications.
 - For any residual dynamic queries, escape special characters
-using the specific escape syntax for that interpreter.
-Note: SQL structure such as table names, column names, and
-so on cannot be escaped, and thus user-supplied structure
-names are dangerous. This is a common issue in report-writing
-software.
+  using the specific escape syntax for that interpreter.
+  Note: SQL structure such as table names, column names, and
+  so on cannot be escaped, and thus user-supplied structure
+  names are dangerous. This is a common issue in report-writing
+  software.
 - Use LIMIT and other SQL controls within queries to prevent
-mass disclosure of records in case of SQL injection.
+  mass disclosure of records in case of SQL injection.
 
 ### Keys to mitigate
 
@@ -369,7 +376,7 @@ mass disclosure of records in case of SQL injection.
 ![Car with an SQL injection in as a plate](/img/car_injection.jpg)
 _Image from [backtrackacademy](https://backtrackacademy.com/articulo/sql-injection-god-level-mito-o-realidad)_
 
-You always must sanitize all the Inputs. No matter where they came from. Any non-controller input can be a very harmful. 
+You always must sanitize all the Inputs. No matter where they came from. Any non-controller input can be a very harmful.
 
 ## Hacking Playground
 
@@ -387,15 +394,16 @@ You always must sanitize all the Inputs. No matter where they came from. Any non
 - [OWASP Cheat Sheet: Query Parameterization](https://cheatsheetseries.owasp.org/cheatsheets/Query_Parameterization_Cheat_Sheet.html)
 
 ### CWEs
+
 - [CWE-77: Command Injection](https://cwe.mitre.org/data/definitions/77.html)
 - [CWE-89: SQL Injection](https://cwe.mitre.org/data/definitions/89.html)
 - [CWE-94: Improper Control of Generation of Code ('Code Injection')](https://cwe.mitre.org/data/definitions/94.html)
-- [CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')](https://cwe.mitre.org/data/definitions/95.html)
+  - [CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')](https://cwe.mitre.org/data/definitions/95.html)
 - [CWE-116: Improper Encoding or Escaping of Output](https://cwe.mitre.org/data/definitions/116.html)
 - [CWE-564: Hibernate Injection](https://cwe.mitre.org/data/definitions/564.html)
 - [CWE-917: Expression Language Injection](https://cwe.mitre.org/data/definitions/917.html)
 
-### Other 
+### Other
 
 - [Scott Smith | Secure Node Apps Against OWASP Top 10 - Injection](http://scottksmith.com/blog/2015/06/08/secure-node-apps-against-owasp-top-10-injection/)
 - [Snyk | What is a backdoor? Let’s build one with Node.js](https://snyk.io/blog/what-is-a-backdoor/)

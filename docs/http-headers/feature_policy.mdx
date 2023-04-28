@@ -41,14 +41,16 @@ Helmet’s `featurePolicy` middleware lets you restrict which browser features c
 ```js
 const helmet = require('helmet')
 
-app.use(helmet.featurePolicy({
-  features: {
-    fullscreen: ["'self'"],
-    vibrate: ["'none'"],
-    payment: ['example.com'],
-    syncXhr: ["'none'"]
-  }
-}))
+app.use(
+  helmet.featurePolicy({
+    features: {
+      fullscreen: ["'self'"],
+      vibrate: ["'none'"],
+      payment: ['example.com'],
+      syncXhr: ["'none'"]
+    }
+  })
+)
 ```
 
 ### Refs:

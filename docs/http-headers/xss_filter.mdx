@@ -3,16 +3,17 @@ title: XSS Filter
 sidebar_position: 15
 ---
 
-
 # HTTP Header: XSS Filter
 
 ## The attack
 
 One kind of XSS is called “Reflected XSS”. Typically, it works by setting a query string which is put directly into the HTML. Putting JavaScript in the query string can let an attacker execute their JavaScript just by giving someone a malicious query string.
 
-<iframe width="100%" height="450"
-src="https://www.youtube.com/embed/9xyRKZbv5kQ">
-</iframe>
+<iframe
+  width='100%'
+  height='450'
+  src='https://www.youtube.com/embed/9xyRKZbv5kQ'
+></iframe>
 
 ## The header
 
@@ -37,9 +38,10 @@ app.use(helmet.xssFilter())
 
 #### Report violations
 
-You can also optionally configure a report URI, though the flag is specific to [Chrome-based browsers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection). 
+You can also optionally configure a report URI, though the flag is specific to [Chrome-based browsers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection).
 
 This option will report the violation to the specified URI:
+
 ```js
 const helmet = require('helmet')
 

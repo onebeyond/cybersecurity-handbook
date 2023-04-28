@@ -7,7 +7,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Cybersecurity Handbook',
-  tagline: 'Empowering you to stay safe in the digital world with One Beyond&#39;s Cybersecurity Handbook.',
+  tagline:
+    'Empowering you to stay safe in the digital world with One Beyond&#39;s Cybersecurity Handbook.',
   url: 'https://cybersecurityhandbook.dev',
   baseUrl: '/',
   onBrokenLinks: 'throw',

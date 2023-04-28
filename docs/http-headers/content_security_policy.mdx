@@ -38,17 +38,17 @@ Now we’ve whitelisted `'self'` and `maxcdn.bootstrapcdn.com`. The user will be
 As an example here is the CSP used by Github:
 
 ```
-default-src 'none'; 
-base-uri 'self'; 
-block-all-mixed-content; 
+default-src 'none';
+base-uri 'self';
+block-all-mixed-content;
 connect-src 'self' uploads.github.com www.githubstatus.com collector.githubapp.com api.github.com www.google-analytics.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com wss://live.github.com;
-font-src github.githubassets.com; 
+font-src github.githubassets.com;
 form-action 'self' github.com gist.github.com;
 frame-ancestors 'none';
 frame-src render.githubusercontent.com;
-img-src 'self' data: github.githubassets.com identicons.github.com collector.githubapp.com github-cloud.s3.amazonaws.com *.githubusercontent.com customer-stories-feed.github.com; 
-manifest-src 'self'; 
-media-src 'none'; script-src github.githubassets.com; 
+img-src 'self' data: github.githubassets.com identicons.github.com collector.githubapp.com github-cloud.s3.amazonaws.com *.githubusercontent.com customer-stories-feed.github.com;
+manifest-src 'self';
+media-src 'none'; script-src github.githubassets.com;
 style-src 'unsafe-inline' github.githubassets.com
 ```
 
@@ -67,18 +67,20 @@ Check out the [supported directives](https://github.com/helmetjs/csp#supported-d
 ```js
 const helmet = require('helmet')
 
-app.use(helmet.contentSecurityPolicy({
-  directives: {
-    defaultSrc: ["'self'", 'default.com'],
-    scriptSrc: ["'self'", "'unsafe-inline'"],
-    sandbox: ['allow-forms', 'allow-scripts'],
-    reportUri: '/report-violation',
-    objectSrc: ["'none'"],
-    //...
-    upgradeInsecureRequests: true,
-    workerSrc: false
-  }
-}))
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'", 'default.com'],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      sandbox: ['allow-forms', 'allow-scripts'],
+      reportUri: '/report-violation',
+      objectSrc: ["'none'"],
+      //...
+      upgradeInsecureRequests: true,
+      workerSrc: false
+    }
+  })
+)
 ```
 
 #### CSP violations
@@ -88,12 +90,14 @@ If you’ve specified a reportUri, browsers will POST any CSP violations to your
 ```js
 const helmet = require('helmet')
 
-app.use(helmet.contentSecurityPolicy({
-  directives: {
-    reportUri: '/report-violation',
-    //...
-  }
-}))
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      reportUri: '/report-violation'
+      //...
+    }
+  })
+)
 ```
 
 ### Report Only mode
@@ -185,14 +189,16 @@ app.use(function (req, res, next) {
   next()
 })
 
-app.use(csp({
-  directives: {
-    scriptSrc: [
-      "'self'",
-      (req, res) => `'nonce-${res.locals.nonce}'`  // 'nonce-614d9122-d5b0-4760-aecf-3a5d17cf0ac9'
-    ]
-  }
-}))
+app.use(
+  csp({
+    directives: {
+      scriptSrc: [
+        "'self'",
+        (req, res) => `'nonce-${res.locals.nonce}'` // 'nonce-614d9122-d5b0-4760-aecf-3a5d17cf0ac9'
+      ]
+    }
+  })
+)
 
 app.use(function (req, res) {
   res.end(`<script nonce="${res.locals.nonce}">alert(1 + 1);</script>`)

