@@ -1,0 +1,63 @@
+---
+title: Frameguard
+sidebar_position: 10
+---
+
+# HTTP Header: Frameguard
+
+## The attack
+
+The attacker wants you to click something that you don’t actually want to click, and they do it by hiding the link/button behind something else that they can trick you into clicking on.
+
+Clickjacking can be used to get you to click anything you don’t want to. These things include unintentional endorsements on social networks, clicking advertisements, and if it’s very clever, tricking you into doing more complex things.
+
+<iframe
+  width='100%'
+  height='450'
+  src='https://www.youtube.com/embed/Pdc5KJfOQpI'
+></iframe>
+
+## The header
+
+The `X-Frame-Options` header tells browsers to prevent your webpage from being put in an iframe. When browsers load iframes, they’ll check the value of the `X-Frame-Options header` and abort loading if it’s not allowed.
+
+The header has three options:
+
+- `DENY` will prevent anyone from putting this page in an iframe.
+- `SAMEORIGIN` will prevent anyone from putting this page in an iframe unless it’s on the same origin. That generally means that you can put your own pages in iframes, but nobody else can.
+- `ALLOW-FROM` http://example.com will allow http://example.com to put your page in an iframe, but nobody else. [See: limited support](https://caniuse.com/#feat=x-frame-options)
+
+## The code
+
+If you aren’t expecting your pages to be put in iframes, setting this to `DENY` or `SAMEORIGIN` is probably a good idea because it limits your page’s attack surface.
+
+```js
+const helmet = require('helmet')
+
+app.use(helmet())
+// Don't allow me to be in ANY frames.
+// Sets "X-Frame-Options: DENY".
+app.use(helmet.frameguard({ action: 'deny' }))
+
+// Only let me be framed by people of the same origin.
+// Sets "X-Frame-Options: SAMEORIGIN".
+app.use(helmet.frameguard({ action: 'sameorigin' }))
+app.use(helmet.frameguard()) // defaults to sameorigin
+
+// Allow from a specific host.
+// Sets "X-Frame-Options: ALLOW-FROM http://example.com".
+// Note that browser support for this option is low!
+app.use(
+  helmet.frameguard({
+    action: 'allow-from',
+    domain: 'http://example.com'
+  })
+)
+```
+
+### Refs:
+
+- [Helmet | frameguard](https://helmetjs.github.io/docs/frameguard)
+- [Wikipedia | Clickjacking](https://en.wikipedia.org/wiki/Clickjacking)
+- [MDN | X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)
+- [Can I use | x-frame-options](https://caniuse.com/#feat=x-frame-options)

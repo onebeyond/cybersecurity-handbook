@@ -1,0 +1,64 @@
+---
+title: Feature Policy
+sidebar_position: 9
+---
+
+# HTTP Header: Feature Policy
+
+## The attack
+
+Web browsers have lots of different features, from vibration to fullscreen to microphone access. While some of these can be useful, you may not wish to use all of them, and you may not want any third-party scripts you include to use them either.
+
+## The header
+
+The `Feature-Policy` header tells browsers which features you can use. For example, if you want to disable notifications for everyone and allow payments from example.com, you could send a header like this:
+
+```
+Feature-Policy: notifications 'none'; payments example.com
+```
+
+### List of Features
+
+Not all the browsers have a full support, but most of them have a [partial support](https://caniuse.com/#feat=feature-policy)
+
+#### Policy Controlled Features
+
+- [Standardized Features](https://github.com/w3c/webappsec-feature-policy/blob/master/features.md#standardized-features)
+- [Proposed Features](https://github.com/w3c/webappsec-feature-policy/blob/master/features.md#proposed-features)
+- [Experimental Features](https://github.com/w3c/webappsec-feature-policy/blob/master/features.md#experimental-features)
+
+### Posible values
+
+- `*`: The feature is allowed in top-level browsing contexts and in nested browsing contexts (iframes).
+- `'self'`: The feature is allowed in top-level browsing contexts and same-origin nested browsing contexts. It is disallowed in cross-origin documents in nested browsing contexts.
+- `'none'`: The feature is disallowed in top-level browsing contexts and disallowed in nested browsing contexts.
+- `<origin(s)>`: specific origins to enable the policy for (e.g. https://example.com).
+
+## The code
+
+Helmet’s `featurePolicy` middleware lets you restrict which browser features can be used. For example, you can disable fullscreen or vibration APIs.
+
+```js
+const helmet = require('helmet')
+
+app.use(
+  helmet.featurePolicy({
+    features: {
+      fullscreen: ["'self'"],
+      vibrate: ["'none'"],
+      payment: ['example.com'],
+      syncXhr: ["'none'"]
+    }
+  })
+)
+```
+
+### Refs:
+
+- [Helmet | Feature-Policy](https://helmetjs.github.io/docs/feature-policy)
+- [W3C | Feature Policy](https://w3c.github.io/webappsec-feature-policy/)
+- [Google Developers | Introduction to Feature Policy](https://developers.google.com/web/updates/2018/06/feature-policy)
+- [Can I use | feature-policy](https://caniuse.com/#feat=feature-policy)
+- [Chrome Status | Feature Policy](https://www.chromestatus.com/features#component%3A%20Blink%3EFeaturePolicy)
+- [Chromium team | Feature Policy Explainer](https://docs.google.com/document/d/1k0Ua-ZWlM_PsFCFdLMa8kaVTo32PeNZ4G7FFHqpFx4E/edit#)
+- [Scott Helme | A new security header: Feature Policy](https://scotthelme.co.uk/a-new-security-header-feature-policy/)

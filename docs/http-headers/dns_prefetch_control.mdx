@@ -1,0 +1,44 @@
+---
+title: DNS Prefetch Control
+sidebar_position: 5
+---
+
+# HTTP Header: DNS Prefetch Control
+
+## The attack
+
+When you visit a URL, your browser has to look up the domain’s IP address. For example, it has to resolve `example.com` to `93.184.216.34`. This process is called DNS.
+
+Browsers can start these DNS requests before the user even clicks a link or loads a resource from somewhere. This improves performance when the user clicks the link, but has privacy implications for users. It can appear as if a user is visiting things they aren’t visiting.
+
+## The header
+
+The `X-DNS-Prefetch-Control` header tells browsers whether they should do DNS prefetching. Turning it on may not work—not all browsers support it in all situations—but turning it off should disable it on all supported browsers.
+
+To disable DNS prefetching, set the `X-DNS-Prefetch-Control` header to off. To attempt to enable it, set the value to on.
+
+Most browsers don’t do DNS prefetching so most browsers can ignore this header.
+
+## The code
+
+This middleware lets you disable browsers’ DNS prefetching by setting the `X-DNS-Prefetch-Control` header.
+
+```js
+const helmet = require('helmet')
+
+// Sets "X-DNS-Prefetch-Control: off".
+app.use(helmet())
+
+// Sets "X-DNS-Prefetch-Control: off".
+app.use(helmet.dnsPrefetchControl({ allow: false }))
+
+// Sets "X-DNS-Prefetch-Control: on".
+app.use(helmet.dnsPrefetchControl({ allow: true }))
+```
+
+### Refs:
+
+- [Helmet | DNS Prefetch Control](https://helmetjs.github.io/docs/dns-prefetch-control)
+- [MDN | X-DNS-Prefetch-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control)
+- [Chromium | DNS Prefetching](https://dev.chromium.org/developers/design-documents/dns-prefetching)
+- [KeyCDN | What Is Prefetching and Why Use It](https://www.keycdn.com/support/prefetching)

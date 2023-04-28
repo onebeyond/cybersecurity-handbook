@@ -1,0 +1,48 @@
+---
+title: Don't Sniff Mimetype
+sidebar_position: 6
+---
+
+# HTTP Header: Don't Sniff Mimetype
+
+## The attack
+
+MIME types are a way of determining what kind of file you’re looking at. PNG images have the type `image/png`; JSON files are `application/json`; JavaScript files are typically `text/javascript`. When your browser loads a file, it reads the server’s `Content-Type` header to determine what the thing is.
+
+Let’s say that your browser sees this:
+
+```html
+<script src="https://example.com/my-javascript"></script>
+```
+
+It’ll go and load `my-javascript` from `example.com`. If `example.com` sends a `Content-Type` header of `text/javascript`, your browser will execute the contents of `my-javascript` as JavaScript.
+
+But what if `my-javascript` is an HTML page with a `Content-Type` of `text/html`? If your browser does something called “MIME sniffing” (which some do), it will look at the contents of the file, decide if it looks like JavaScript, and execute it if so. This means that a server can send the wrong `Content-Type` and JavaScript can still get executed.
+
+This MIME sniffing can be an attack vector. A user could upload an image with the `.jpg` file extension but its contents are actually HTML. Visiting that image could cause the browser to “run” the HTML page, which could contain malicious JavaScript! Perhaps the nastiest attack is called [Rosetta Flash](https://miki.it/blog/2014/7/8/abusing-jsonp-with-rosetta-flash/), which allows someone to load a malicious Flash plugin instead of data!
+
+## The header
+
+The `X-Content-Type-Options` header tells browsers not to sniff MIME types. When this header is set to `nosniff`, browsers won’t sniff the MIME type—they will trust what the server says and block the resource if it’s wrong.
+
+## The code
+
+The `noSniff` middleware will set the `X-Content-Type-Options` header to `nosniff` for every request.
+
+```js
+const helmet = require('helmet')
+
+//By default: Sets "X-Content-Type-Options: nosniff".
+app.use(helmet())
+
+// Sets "X-Content-Type-Options: nosniff".
+app.use(helmet.noSniff())
+```
+
+### Refs:
+
+- [Helmet | Don't Sniff Mimetype](https://helmetjs.github.io/docs/dont-sniff-mimetype)
+- [Fox it | MIME Sniffing: feature or vulnerability?](https://blog.fox-it.com/2012/05/08/mime-sniffing-feature-or-vulnerability/)
+- [Miki Blog | Abusing JSONP with Rosetta Flash](https://blog.miki.it/2014/7/8/abusing-jsonp-with-rosetta-flash/)
+- [MDN | X-Content-Type-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options)
+- [Microsoft | Reducing MIME type security risks](<https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/compatibility/gg622941(v=vs.85)?redirectedfrom=MSDN>)

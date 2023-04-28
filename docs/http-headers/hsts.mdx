@@ -1,0 +1,89 @@
+---
+title: Strict Transport Security (HSTS)
+sidebar_position: 11
+---
+
+# HTTP Header: Strict Transport Security (HSTS)
+
+## The attack
+
+As we are not forcing the HTTPS traffic to be keep using HTTPS. The users can use the HTTP (vanilla) protocol to access our site.
+
+As a result of this protocol downgrade we will expose sensitive information (ajax payloads, cookies, tokens...) in plain text.
+
+Our users are vulnerable to person-in-the-middle attacks as nothing sent is encrypted.
+
+<iframe
+  width='100%'
+  height='450'
+  src='https://www.youtube.com/embed/zEV3HOuM_Vw'
+></iframe>
+
+## The header
+
+The Strict-Transport-Security HTTP header tells browsers to stick with HTTPS and never visit the insecure HTTP version. Once a browser sees this header, it will only visit the site over HTTPS for the next 60 days:
+
+```
+Strict-Transport-Security: max-age=5184000
+```
+
+### Limitations
+
+The initial request remains unprotected from active attacks if it uses an insecure protocol such as plain HTTP or if the URI for the initial request was obtained over an insecure channel.
+The same applies to the first request after the activity period specified in the advertised HSTS Policy `max-age` (sites should set a period of several days or months depending on user activity and behavior).
+Google Chrome, Mozilla Firefox and Internet Explorer/Microsoft Edge address this limitation by implementing a "HSTS preloaded list", which is a list that contains known sites supporting HSTS.
+
+### Privacy issues
+
+HSTS can be used to near-indelibly tag visiting browsers with recoverable identifying data ([supercookies](https://en.wikipedia.org/wiki/HTTP_cookie#Supercookie)) which can persist in and out of browser "incognito" privacy modes. [See](https://nakedsecurity.sophos.com/2015/02/02/anatomy-of-a-browser-dilemma-how-hsts-supercookies-make-you-choose-between-privacy-or-security/)
+
+## The code
+
+You can use this module as part of Helmet:
+
+```js
+const helmet = require('helmet')
+
+// Sets "Strict-Transport-Security: max-age=5184000; includeSubDomains".
+const sixtyDaysInSeconds = 5184000
+app.use(
+  helmet.hsts({
+    maxAge: sixtyDaysInSeconds
+  })
+)
+```
+
+### Disable for subdomains
+
+```js
+// Sets "Strict-Transport-Security: max-age=5184000".
+app.use(
+  helmet.hsts({
+    maxAge: sixtyDaysInSeconds,
+    includeSubDomains: false
+  })
+)
+```
+
+### Preloading HSTS in Chrome
+
+Some browsers let you submit your site’s HSTS to be baked into the browser. You can add preload to the header with the following code. You can check your eligibility and submit your site at [hstspreload.org](https://hstspreload.org/).
+
+```js
+app.use(
+  helmet.hsts({
+    // Must be at least 1 year to be approved
+    maxAge: 31536000,
+
+    // Must be enabled to be approved
+    includeSubDomains: true,
+    preload: true
+  })
+)
+```
+
+### Refs:
+
+- [Helmet | HSTS](https://helmetjs.github.io/docs/hsts)
+- [Wikipedia | HTTP Strict Transport Security](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security)
+- [SOPHOS | Anatomy of a browser dilemma – how HSTS ‘supercookies’ make you choose between privacy or security](https://nakedsecurity.sophos.com/2015/02/02/anatomy-of-a-browser-dilemma-how-hsts-supercookies-make-you-choose-between-privacy-or-security/)
