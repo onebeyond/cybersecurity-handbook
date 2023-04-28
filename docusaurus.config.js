@@ -51,7 +51,7 @@ const config = {
       },
       footer: {
         style: 'dark',
-        copyright: `Built with Docusaurus.`
+        copyright: 'Built with Docusaurus.'
       },
       prism: {
         theme: lightCodeTheme,
