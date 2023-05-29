@@ -1,6 +1,6 @@
 # Cybersecurity handbook
 
-![Cover image](public/cover.jpg)
+![Cover image](static/img/cover.jpg)
 _Image from [needpix.com](https://www.needpix.com/photo/download/963169/hacker-cyber-crime-banner-header-internet-computer-security-cyber-technology)_
 
 Empowering you to stay safe in the digital world with One Beyond&#39;s Cybersecurity Handbook.
